@@ -14,12 +14,12 @@ with open("requirements.txt", "r", encoding="utf-8") as fh:
 setup(
     name="energy-profile-calculator",
     version="1.0.0",
-    author="Energy Profile Calculator Team",
-    author_email="your.email@example.com",
+    author="AbrarFaiyad",
+    author_email="abrarfaiyad@example.com",
     description="A modular package for calculating adsorption energy profiles on surfaces using ML and DFT methods",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/yourusername/energy-profile-calculator",
+    url="https://github.com/AbrarFaiyad/energy-profile-calculator",
     packages=find_packages(),
     classifiers=[
         "Development Status :: 4 - Beta",

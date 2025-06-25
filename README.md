@@ -20,12 +20,18 @@ A modular Python package for calculating adsorption energy profiles on surfaces 
 - CUDA-capable GPU (optional, for ML calculations)
 - Quantum ESPRESSO (optional, for DFT calculations)
 
-### Install from source
+### Install from GitHub
 
 ```bash
-git clone https://github.com/yourusername/energy-profile-calculator.git
+# Clone the repository
+git clone https://github.com/AbrarFaiyad/energy-profile-calculator.git
 cd energy-profile-calculator
+
+# Install in development mode
 pip install -e .
+
+# Or install directly from GitHub
+pip install git+https://github.com/AbrarFaiyad/energy-profile-calculator.git
 ```
 
 ### Install dependencies
@@ -407,17 +413,17 @@ If you use this package in your research, please cite:
 ```bibtex
 @software{energy_profile_calculator,
   title={Energy Profile Calculator: A modular package for adsorption energy calculations},
-  author={Energy Profile Calculator Team},
+  author={AbrarFaiyad},
   year={2025},
-  url={https://github.com/yourusername/energy-profile-calculator}
+  url={https://github.com/AbrarFaiyad/energy-profile-calculator}
 }
 ```
 
 ## Support
 
-- **Documentation**: [https://energy-profile-calculator.readthedocs.io](https://energy-profile-calculator.readthedocs.io)
-- **Issues**: [https://github.com/yourusername/energy-profile-calculator/issues](https://github.com/yourusername/energy-profile-calculator/issues)
-- **Discussions**: [https://github.com/yourusername/energy-profile-calculator/discussions](https://github.com/yourusername/energy-profile-calculator/discussions)
+- **Documentation**: [https://github.com/AbrarFaiyad/energy-profile-calculator](https://github.com/AbrarFaiyad/energy-profile-calculator)
+- **Issues**: [https://github.com/AbrarFaiyad/energy-profile-calculator/issues](https://github.com/AbrarFaiyad/energy-profile-calculator/issues)
+- **Discussions**: [https://github.com/AbrarFaiyad/energy-profile-calculator/discussions](https://github.com/AbrarFaiyad/energy-profile-calculator/discussions)
 
 ## Acknowledgments
 
