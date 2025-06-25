@@ -1,0 +1,55 @@
+# Example configuration file for Energy Profile Calculator
+# Save as config.yaml and run with: energy-profile --config config.yaml
+
+# Surface configuration
+surface:
+  material: Au                    # Chemical symbol
+  miller_indices: [1, 1, 1]      # Miller indices as list
+  size: [3, 3, 4]                # Surface size [nx, ny, nlayers]
+  vacuum: 14.0                   # Vacuum space above surface (Å)
+  # crystal_structure: fcc        # Optional: override auto-detection
+
+# Adsorbant configuration
+adsorbant:
+  type: H2O                      # Molecule name from library
+  orientation: flat              # Molecular orientation
+
+# Calculation parameters
+calculation:
+  z_start: 2.0                   # Starting height above surface (Å)
+  z_end: 8.0                     # Ending height above surface (Å)
+  z_step: 0.2                    # Height increment (Å)
+  use_ml: true                   # Enable ML calculations
+  use_dft: true                  # Enable DFT calculations
+  ml_tasks: [omat, omc]          # ML tasks to run
+  dft_subset_factor: 2           # Calculate DFT every Nth point
+
+# Machine learning settings
+ml_settings:
+  model: uma-s-1                 # ML model name
+  device: cuda                   # Device: cuda or cpu
+
+# DFT settings
+dft_settings:
+  functional: pbe                # DFT functional
+  ecutwfc: 80                    # Kinetic energy cutoff (Ry)
+  ecutrho: 640                   # Charge density cutoff (Ry)
+  kpts: [6, 6, 1]               # k-point grid
+  occupations: smearing          # Occupation method
+  smearing: mp                   # Smearing type
+  degauss: 0.01                  # Smearing width (Ry)
+  vdw_corr: grimme-d3           # Dispersion correction
+  conv_thr: 1.0e-8              # Convergence threshold (Ry)
+  pseudo_dir: /path/to/pseudopotentials  # Update this path!
+  
+  # Custom pseudopotentials (optional)
+  # pseudopotentials:
+  #   Au: Au.pbe-n-kjpaw_psl.1.0.0.UPF
+  #   H: H.pbe-kjpaw_psl.1.0.0.UPF
+  #   O: O.pbe-n-kjpaw_psl.1.0.0.UPF
+
+# Output settings
+output:
+  save_structures: true          # Save structure files
+  output_dir: ./results          # Output directory
+  plot_formats: [png, pdf]       # Plot file formats
