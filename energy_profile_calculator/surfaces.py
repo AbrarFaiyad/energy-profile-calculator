@@ -39,6 +39,36 @@ class SurfaceBuilder:
             'Zn': 'hcp', 'Cd': 'hcp', 'Ti': 'hcp', 'Zr': 'hcp', 'Mg': 'hcp',
             'Be': 'hcp', 'Co': 'hcp', 'Ru': 'hcp', 'Re': 'hcp'
         }
+        
+        # 2D layered materials support
+        self._layered_materials = {
+            'MoS2': {'metal': 'Mo', 'chalcogen': 'S', 'metal_coord': 'trigonal_prismatic'},
+            'WS2': {'metal': 'W', 'chalcogen': 'S', 'metal_coord': 'trigonal_prismatic'},
+            'MoSe2': {'metal': 'Mo', 'chalcogen': 'Se', 'metal_coord': 'trigonal_prismatic'},
+            'WSe2': {'metal': 'W', 'chalcogen': 'Se', 'metal_coord': 'trigonal_prismatic'},
+            'MoTe2': {'metal': 'Mo', 'chalcogen': 'Te', 'metal_coord': 'trigonal_prismatic'},
+            'WTe2': {'metal': 'W', 'chalcogen': 'Te', 'metal_coord': 'trigonal_prismatic'},
+            'TiS2': {'metal': 'Ti', 'chalcogen': 'S', 'metal_coord': 'octahedral'},
+            'TiSe2': {'metal': 'Ti', 'chalcogen': 'Se', 'metal_coord': 'octahedral'},
+            'ZrS2': {'metal': 'Zr', 'chalcogen': 'S', 'metal_coord': 'trigonal_prismatic'},
+            'HfS2': {'metal': 'Hf', 'chalcogen': 'S', 'metal_coord': 'trigonal_prismatic'},
+            'NbS2': {'metal': 'Nb', 'chalcogen': 'S', 'metal_coord': 'trigonal_prismatic'},
+            'TaS2': {'metal': 'Ta', 'chalcogen': 'S', 'metal_coord': 'trigonal_prismatic'},
+            'ReS2': {'metal': 'Re', 'chalcogen': 'S', 'metal_coord': 'distorted_octahedral'},
+            'PtS2': {'metal': 'Pt', 'chalcogen': 'S', 'metal_coord': 'octahedral'},
+            'PdS2': {'metal': 'Pd', 'chalcogen': 'S', 'metal_coord': 'square_planar'},
+            'SnS2': {'metal': 'Sn', 'chalcogen': 'S', 'metal_coord': 'octahedral'},
+            'GeS2': {'metal': 'Ge', 'chalcogen': 'S', 'metal_coord': 'tetrahedral'},
+            'InSe': {'metal': 'In', 'chalcogen': 'Se', 'metal_coord': 'octahedral'},
+            'GaS': {'metal': 'Ga', 'chalcogen': 'S', 'metal_coord': 'tetrahedral'},
+            'GaSe': {'metal': 'Ga', 'chalcogen': 'Se', 'metal_coord': 'tetrahedral'},
+            'graphene': {'metal': 'C', 'chalcogen': None, 'metal_coord': 'trigonal_planar'},
+            'h-BN': {'metal': 'B', 'chalcogen': 'N', 'metal_coord': 'trigonal_planar'},
+            'silicene': {'metal': 'Si', 'chalcogen': None, 'metal_coord': 'buckled'},
+            'germanene': {'metal': 'Ge', 'chalcogen': None, 'metal_coord': 'buckled'},
+            'phosphorene': {'metal': 'P', 'chalcogen': None, 'metal_coord': 'puckered'},
+            'arsenene': {'metal': 'As', 'chalcogen': None, 'metal_coord': 'puckered'}
+        }
     
     def build_surface(self, material: str, miller_indices: Tuple[int, ...], 
                      size: Tuple[int, int, int], vacuum: float = 10.0,
@@ -260,6 +290,260 @@ class SurfaceBuilder:
             raise ValueError(f"Unsupported crystal structure: {crystal_structure}")
         
         return list(self._surface_builders[crystal_structure].keys())
+    
+    def list_2d_materials(self) -> List[str]:
+        """Get list of supported 2D layered materials."""
+        return list(self._layered_materials.keys())
+    
+    def get_2d_material_info(self, material: str) -> Dict[str, Any]:
+        """Get information about a 2D material."""
+        if material not in self._layered_materials:
+            raise ValueError(f"2D material '{material}' not supported.")
+        return self._layered_materials[material].copy()
+    
+    def build_2d_material(self, material: str, size: Tuple[int, int], 
+                         vacuum: float = 15.0, layers: int = 1) -> Atoms:
+        """
+        Build a 2D layered material surface.
+        
+        Args:
+            material: Name of the 2D material (e.g., 'MoS2', 'graphene', 'h-BN')
+            size: Size of the surface unit cell (nx, ny)
+            vacuum: Vacuum space above and below the material (Å)
+            layers: Number of layers to stack
+            
+        Returns:
+            Atoms object representing the 2D material
+        """
+        if material not in self._layered_materials:
+            available = list(self._layered_materials.keys())
+            raise ValueError(f"2D material '{material}' not supported. Available: {available}")
+        
+        mat_info = self._layered_materials[material]
+        
+        if material == 'graphene':
+            surface = self._build_graphene(size, vacuum, layers)
+        elif material == 'h-BN':
+            surface = self._build_hexagonal_bn(size, vacuum, layers)
+        elif material in ['silicene', 'germanene']:
+            surface = self._build_buckled_honeycomb(material, size, vacuum, layers)
+        elif material in ['phosphorene', 'arsenene']:
+            surface = self._build_puckered_layer(material, size, vacuum, layers)
+        elif mat_info['chalcogen'] is not None:
+            # Transition metal dichalcogenides
+            surface = self._build_tmd(material, size, vacuum, layers)
+        else:
+            raise ValueError(f"Building method not implemented for {material}")
+        
+        return surface
+    
+    def _build_graphene(self, size: Tuple[int, int], vacuum: float, layers: int) -> Atoms:
+        """Build graphene structure."""
+        a = 2.46  # Lattice parameter in Å
+        c_c = 1.42  # C-C bond length
+        
+        # Hexagonal unit cell
+        cell = [[a, 0, 0], 
+                [-a/2, a*np.sqrt(3)/2, 0], 
+                [0, 0, vacuum + layers * 3.35]]
+        
+        # Carbon positions in unit cell
+        positions = []
+        elements = []
+        
+        for layer in range(layers):
+            z_offset = layer * 3.35  # Interlayer spacing
+            # Two carbon atoms per unit cell
+            pos1 = [0, 0, z_offset + vacuum/2]
+            pos2 = [a/3, a/(3*np.sqrt(3)), z_offset + vacuum/2]
+            
+            for nx in range(size[0]):
+                for ny in range(size[1]):
+                    # Replicate unit cell
+                    shift = np.array([nx*a, ny*a*np.sqrt(3)/2, 0])
+                    positions.append(pos1 + shift)
+                    positions.append(pos2 + shift)
+                    elements.extend(['C', 'C'])
+        
+        # Adjust cell size for supercell
+        supercell = [[size[0]*a, 0, 0],
+                    [-size[0]*a/2, size[1]*a*np.sqrt(3)/2, 0],
+                    [0, 0, vacuum + layers * 3.35]]
+        
+        atoms = Atoms(symbols=elements, positions=positions, cell=supercell, pbc=[True, True, True])
+        return atoms
+    
+    def _build_hexagonal_bn(self, size: Tuple[int, int], vacuum: float, layers: int) -> Atoms:
+        """Build hexagonal boron nitride structure."""
+        a = 2.50  # Lattice parameter in Å
+        
+        # Similar to graphene but with B and N alternating
+        cell = [[a, 0, 0], 
+                [-a/2, a*np.sqrt(3)/2, 0], 
+                [0, 0, vacuum + layers * 3.33]]
+        
+        positions = []
+        elements = []
+        
+        for layer in range(layers):
+            z_offset = layer * 3.33  # Interlayer spacing
+            # B and N atoms per unit cell
+            pos_b = [0, 0, z_offset + vacuum/2]
+            pos_n = [a/3, a/(3*np.sqrt(3)), z_offset + vacuum/2]
+            
+            for nx in range(size[0]):
+                for ny in range(size[1]):
+                    shift = np.array([nx*a, ny*a*np.sqrt(3)/2, 0])
+                    positions.append(pos_b + shift)
+                    positions.append(pos_n + shift)
+                    elements.extend(['B', 'N'])
+        
+        supercell = [[size[0]*a, 0, 0],
+                    [-size[0]*a/2, size[1]*a*np.sqrt(3)/2, 0],
+                    [0, 0, vacuum + layers * 3.33]]
+        
+        atoms = Atoms(symbols=elements, positions=positions, cell=supercell, pbc=[True, True, True])
+        return atoms
+    
+    def _build_tmd(self, material: str, size: Tuple[int, int], vacuum: float, layers: int) -> Atoms:
+        """Build transition metal dichalcogenide structure."""
+        mat_info = self._layered_materials[material]
+        metal = mat_info['metal']
+        chalcogen = mat_info['chalcogen']
+        
+        # Lattice parameters (approximate values)
+        lattice_params = {
+            'MoS2': 3.16, 'WS2': 3.15, 'MoSe2': 3.29, 'WSe2': 3.28,
+            'MoTe2': 3.52, 'WTe2': 3.50, 'TiS2': 3.37, 'TiSe2': 3.54,
+            'ZrS2': 3.66, 'HfS2': 3.63, 'NbS2': 3.31, 'TaS2': 3.31,
+            'ReS2': 3.14, 'PtS2': 3.54, 'PdS2': 3.61, 'SnS2': 3.65,
+            'GeS2': 3.64, 'InSe': 4.05, 'GaS': 3.59, 'GaSe': 3.74
+        }
+        
+        interlayer_spacing = {
+            'MoS2': 6.15, 'WS2': 6.15, 'MoSe2': 6.46, 'WSe2': 6.48,
+            'MoTe2': 6.97, 'WTe2': 7.05, 'TiS2': 5.69, 'TiSe2': 6.01,
+            'ZrS2': 5.83, 'HfS2': 5.86, 'NbS2': 5.98, 'TaS2': 5.90,
+            'ReS2': 6.18, 'PtS2': 5.04, 'PdS2': 5.05, 'SnS2': 5.90,
+            'GeS2': 5.98, 'InSe': 8.32, 'GaS': 7.49, 'GaSe': 7.98
+        }
+        
+        a = lattice_params.get(material, 3.20)
+        c_layer = interlayer_spacing.get(material, 6.20)
+        
+        # Hexagonal unit cell
+        cell = [[a, 0, 0], 
+                [-a/2, a*np.sqrt(3)/2, 0], 
+                [0, 0, vacuum + layers * c_layer]]
+        
+        positions = []
+        elements = []
+        
+        for layer in range(layers):
+            z_offset = layer * c_layer
+            # TMD structure: chalcogen-metal-chalcogen sandwich
+            # Metal at center, chalcogens above and below
+            metal_z = z_offset + vacuum/2
+            chalcogen1_z = metal_z + 1.56  # Approximate M-X distance
+            chalcogen2_z = metal_z - 1.56
+            
+            for nx in range(size[0]):
+                for ny in range(size[1]):
+                    shift = np.array([nx*a, ny*a*np.sqrt(3)/2, 0])
+                    
+                    # Metal position
+                    metal_pos = [0, 0, metal_z] + shift
+                    positions.append(metal_pos)
+                    elements.append(metal)
+                    
+                    # Chalcogen positions (2 per metal)
+                    chalc1_pos = [a/3, a/(3*np.sqrt(3)), chalcogen1_z] + shift
+                    chalc2_pos = [2*a/3, 2*a/(3*np.sqrt(3)), chalcogen2_z] + shift
+                    positions.extend([chalc1_pos, chalc2_pos])
+                    elements.extend([chalcogen, chalcogen])
+        
+        supercell = [[size[0]*a, 0, 0],
+                    [-size[0]*a/2, size[1]*a*np.sqrt(3)/2, 0],
+                    [0, 0, vacuum + layers * c_layer]]
+        
+        atoms = Atoms(symbols=elements, positions=positions, cell=supercell, pbc=[True, True, True])
+        return atoms
+    
+    def _build_buckled_honeycomb(self, material: str, size: Tuple[int, int], 
+                                vacuum: float, layers: int) -> Atoms:
+        """Build buckled honeycomb structures like silicene, germanene."""
+        lattice_params = {'silicene': 3.86, 'germanene': 4.02}
+        buckling_heights = {'silicene': 0.44, 'germanene': 0.64}
+        
+        element = material.replace('ene', '').capitalize()
+        a = lattice_params[material]
+        buckling = buckling_heights[material]
+        
+        positions = []
+        elements = []
+        
+        for layer in range(layers):
+            z_offset = layer * 6.0  # Approximate interlayer spacing
+            
+            for nx in range(size[0]):
+                for ny in range(size[1]):
+                    shift = np.array([nx*a, ny*a*np.sqrt(3)/2, 0])
+                    
+                    # Two atoms per unit cell with different z-heights
+                    pos1 = [0, 0, z_offset + vacuum/2 + buckling/2] + shift
+                    pos2 = [a/3, a/(3*np.sqrt(3)), z_offset + vacuum/2 - buckling/2] + shift
+                    positions.extend([pos1, pos2])
+                    elements.extend([element, element])
+        
+        supercell = [[size[0]*a, 0, 0],
+                    [-size[0]*a/2, size[1]*a*np.sqrt(3)/2, 0],
+                    [0, 0, vacuum + layers * 6.0]]
+        
+        atoms = Atoms(symbols=elements, positions=positions, cell=supercell, pbc=[True, True, True])
+        return atoms
+    
+    def _build_puckered_layer(self, material: str, size: Tuple[int, int], 
+                             vacuum: float, layers: int) -> Atoms:
+        """Build puckered layer structures like phosphorene, arsenene."""
+        lattice_params = {'phosphorene': [4.38, 3.31], 'arsenene': [4.63, 3.60]}
+        puckering_heights = {'phosphorene': 2.13, 'arsenene': 2.50}
+        
+        element = material.replace('ene', '').capitalize()
+        if element == 'Phosphor':
+            element = 'P'
+        elif element == 'Arsen':
+            element = 'As'
+        
+        a, b = lattice_params[material]
+        puckering = puckering_heights[material]
+        
+        positions = []
+        elements = []
+        
+        for layer in range(layers):
+            z_offset = layer * 5.0  # Approximate interlayer spacing
+            
+            for nx in range(size[0]):
+                for ny in range(size[1]):
+                    shift_x = nx * a
+                    shift_y = ny * b
+                    
+                    # Four atoms per unit cell in puckered arrangement
+                    base_z = z_offset + vacuum/2
+                    positions.extend([
+                        [0 + shift_x, 0 + shift_y, base_z + puckering/2],
+                        [a/2 + shift_x, 0 + shift_y, base_z - puckering/2],
+                        [a/2 + shift_x, b/2 + shift_y, base_z + puckering/2],
+                        [0 + shift_x, b/2 + shift_y, base_z - puckering/2]
+                    ])
+                    elements.extend([element] * 4)
+        
+        supercell = [[size[0]*a, 0, 0],
+                    [0, size[1]*b, 0],
+                    [0, 0, vacuum + layers * 5.0]]
+        
+        atoms = Atoms(symbols=elements, positions=positions, cell=supercell, pbc=[True, True, True])
+        return atoms
 
 
 def create_custom_surface(positions: List[Tuple[float, float, float]], 
