@@ -6,8 +6,8 @@ A modular Python package for calculating adsorption energy profiles on surfaces 
 
 - **Modular Design**: Easily extensible with new surfaces, adsorbants, and calculation methods
 - **Multiple Calculation Methods**: Support for ML models (OMAT/OMC via FairChem) and DFT (Quantum ESPRESSO)
-- **Comprehensive Adsorbant Library**: Pre-defined molecules (H2O, CO, NH3, etc.) with customizable orientations
-- **Surface Builder**: Support for FCC, BCC, and HCP crystal structures with various Miller indices
+- **Comprehensive Adsorbant Library**: 73+ pre-defined molecules including organic compounds, metal clusters, and inorganic materials
+- **Advanced Surface Builder**: Support for FCC, BCC, HCP crystal structures and 26 2D materials (MoS2, graphene, etc.)
 - **Beautiful Visualizations**: Publication-quality plots with seaborn styling
 - **Command Line Interface**: Easy-to-use CLI with configuration file support
 - **Automated Analysis**: Binding energy calculations, optimal height determination, and method comparisons
@@ -55,8 +55,9 @@ For DFT calculations, you need:
 # Generate example configuration
 energy-profile --create-config example_config.yaml
 
-# Run calculation with command line arguments
+# Run calculation with command line arguments (now supports 73+ adsorbants and 2D materials)
 energy-profile --surface Au --miller 1 1 1 --adsorbant H2O --ml-only --output-dir results
+energy-profile --surface MoS2 --adsorbant Au2 --ml-only --output-dir results_2d
 
 # Run with configuration file
 energy-profile --config my_config.yaml
@@ -70,7 +71,15 @@ from energy_profile_calculator import EnergyProfileCalculator
 # Initialize calculator
 calc = EnergyProfileCalculator()
 
-# Setup Au(111) surface
+# Setup MoS2 monolayer surface (2D material)
+calc.setup_surface(
+    material='MoS2', 
+    size=(3, 3), 
+    vacuum=15.0,
+    surface_type='2d'
+)
+
+# Or setup traditional Au(111) surface
 calc.setup_surface(
     material='Au', 
     miller_indices=(1, 1, 1), 
@@ -87,9 +96,9 @@ calc.setup_calculators(
     dft_pseudo_dir='/path/to/pseudopotentials'
 )
 
-# Calculate H2O adsorption energy profile
+# Calculate H2O adsorption energy profile (now supports 73+ adsorbants)
 results = calc.calculate_energy_profile(
-    adsorbant='H2O',
+    adsorbant='H2O',  # Or try: 'Au2', 'F4TCNQ', 'ZnO', 'tetracene', etc.
     z_start=2.0,
     z_end=8.0,
     z_step=0.2,
@@ -187,21 +196,51 @@ output:
 
 ### Surfaces
 
-#### FCC Materials
+#### Traditional Crystal Surfaces
+
+##### FCC Materials
 - **Metals**: Au, Ag, Cu, Al, Ni, Pd, Pt, Rh, Ir, Pb
 - **Miller indices**: (1,1,1), (1,0,0), (1,1,0)
 
-#### BCC Materials  
+##### BCC Materials  
 - **Metals**: Fe, Cr, W, Mo, V, Nb, Ta
 - **Miller indices**: (1,0,0), (1,1,0), (1,1,1)
 
-#### HCP Materials
+##### HCP Materials
 - **Metals**: Zn, Cd, Ti, Zr, Mg, Be, Co, Ru, Re
 - **Miller indices**: (0,0,0,1)
 
-### Adsorbants
+#### 2D Materials (26 types)
 
-#### Molecules
+##### Transition Metal Dichalcogenides (TMDCs)
+- **MoS2, MoSe2, MoTe2**: Molybdenum dichalcogenides
+- **WS2, WSe2, WTe2**: Tungsten dichalcogenides  
+- **TaS2, TaSe2**: Tantalum dichalcogenides
+- **NbS2, NbSe2**: Niobium dichalcogenides
+- **ReS2, ReSe2**: Rhenium dichalcogenides
+- **PtS2, PtSe2**: Platinum dichalcogenides
+- **PdS2, PdSe2**: Palladium dichalcogenides
+
+##### Carbon-based Materials
+- **Graphene**: Single-layer carbon sheets
+- **h-BN**: Hexagonal boron nitride
+
+##### Phosphorus-based Materials  
+- **Phosphorene**: Black phosphorus monolayer
+- **AsP**: Arsenide phosphide
+
+##### MXenes
+- **Ti3C2**: Titanium carbide MXene
+- **V2C**: Vanadium carbide MXene
+- **Nb2C**: Niobium carbide MXene
+
+##### Other 2D Materials
+- **Silicene**: Silicon analog of graphene
+- **Germanene**: Germanium analog of graphene
+
+### Adsorbants (73+ total)
+
+#### Simple Molecules
 - **H2O**: Water (orientations: flat, vertical)
 - **H2**: Hydrogen (orientations: parallel, perpendicular)
 - **O2**: Oxygen (orientations: parallel, perpendicular)
@@ -211,8 +250,46 @@ output:
 - **NH3**: Ammonia (orientations: n_down, n_up)
 - **CH4**: Methane (orientation: tetrahedral)
 
-#### Atoms
+#### Individual Atoms
 - **H, O, C, N, F, Na**: Individual atoms
+
+#### Metal Clusters (24 types)
+##### Noble Metals
+- **Au, Ag, Pt, Pd**: Gold, silver, platinum, palladium clusters
+- **Ir, Rh, Ru, Re**: Iridium, rhodium, ruthenium, rhenium clusters
+
+##### Transition Metals
+- **Ti, Cr, V**: Titanium, chromium, vanadium clusters
+- **Fe, Co, Ni, Mn**: Iron, cobalt, nickel, manganese clusters
+- **Cu, Zn, Cd**: Copper, zinc, cadmium clusters
+
+##### Other Metals
+- **Al**: Aluminum clusters
+- **Ta, Nb, W**: Tantalum, niobium, tungsten clusters
+- **Li, Na**: Lithium, sodium clusters
+
+#### Inorganic Molecules (12 types)
+##### Metal Oxides
+- **Sb2O3**: Antimony trioxide
+- **ZnO**: Zinc oxide
+- **TiO2**: Titanium dioxide
+
+##### Non-metal Elements
+- **F, P, N, B**: Fluorine, phosphorus, nitrogen, boron
+- **Si, Cl, S**: Silicon, chlorine, sulfur
+- **Se, Te, O**: Selenium, tellurium, oxygen
+
+#### Complex Organic Molecules (7 types)
+##### Electron Acceptors
+- **F4TCNQ**: 2,3,5,6-tetrafluoro-7,7,8,8-tetracyanoquinodimethane
+- **PTCDA**: Perylene-3,4,9,10-tetracarboxylic dianhydride
+- **TCNQ**: Tetracyanoquinodimethane
+- **TCNE**: Tetracyanoethylene
+
+##### Aromatic Compounds
+- **Tetracene**: Polycyclic aromatic hydrocarbon
+- **TTF**: Tetrathiafulvalene (electron donor)
+- **Benzyl viologen**: Electroactive bipyridinium derivative
 
 ### Custom Adsorbants
 
@@ -245,6 +322,65 @@ surface = create_custom_surface(
 )
 ```
 
+### 2D Material Surfaces
+
+```python
+from energy_profile_calculator.surfaces import SurfaceBuilder
+
+# Initialize surface builder
+surface_builder = SurfaceBuilder()
+
+# Create MoS2 monolayer
+mos2_surface = surface_builder.build_2d_material(
+    material='MoS2',
+    size=(3, 3),
+    vacuum=15.0
+)
+
+# List available 2D materials
+materials_2d = surface_builder.list_2d_materials()
+print(f"Available 2D materials: {materials_2d}")
+
+# Get material information
+info = surface_builder.get_2d_material_info('graphene')
+print(f"Graphene lattice parameter: {info['lattice_param']} Å")
+```
+
+### Metal Cluster Adsorbants
+
+```python
+from energy_profile_calculator.adsorbants import AdsorbantLibrary
+
+# Initialize adsorbant library
+ads_lib = AdsorbantLibrary()
+
+# Create gold dimer
+au_dimer = ads_lib.get_adsorbant('Au2', position=(0, 0, 5), orientation='parallel')
+
+# Create titanium cluster
+ti_cluster = ads_lib.get_adsorbant('Ti2', position=(2, 2, 4), orientation='perpendicular')
+
+# List all metal clusters
+metal_clusters = [ads for ads in ads_lib.list_adsorbants() 
+                 if ads_lib.get_info(ads)['category'] == 'metal_cluster']
+print(f"Available metal clusters: {metal_clusters}")
+```
+
+### Complex Organic Molecules
+
+```python
+# Create organic electron acceptor
+f4tcnq = ads_lib.get_adsorbant('F4TCNQ', position=(0, 0, 3), orientation='flat')
+
+# Create aromatic compound
+tetracene = ads_lib.get_adsorbant('tetracene', position=(1, 1, 4), orientation='flat')
+
+# List organic molecules
+organic_mols = [ads for ads in ads_lib.list_adsorbants() 
+                if ads_lib.get_info(ads)['category'] == 'organic']
+print(f"Available organic molecules: {organic_mols}")
+```
+
 ### Method Comparison
 
 ```python
@@ -260,8 +396,8 @@ for method in binding_energies:
 ### Batch Calculations
 
 ```python
-# Run calculations for multiple adsorbants
-adsorbants = ['H', 'O', 'H2O', 'CO']
+# Run calculations for multiple adsorbants including new types
+adsorbants = ['H', 'O', 'H2O', 'CO', 'Au2', 'ZnO', 'F4TCNQ', 'tetracene']
 results = {}
 
 for ads in adsorbants:
@@ -271,6 +407,26 @@ for ads in adsorbants:
         output_dir=f'./results/{ads}'
     )
     results[ads] = result
+
+# Compare different material categories
+metal_clusters = ['Au2', 'Pt2', 'Ti2']
+organic_molecules = ['F4TCNQ', 'tetracene', 'TCNQ']
+inorganic_molecules = ['ZnO', 'TiO2', 'Sb2O3']
+
+# Run systematic study
+categories = {
+    'metal_clusters': metal_clusters,
+    'organic': organic_molecules, 
+    'inorganic': inorganic_molecules
+}
+
+for category, molecules in categories.items():
+    print(f"\nStudying {category}:")
+    for mol in molecules:
+        result = calc.calculate_energy_profile(
+            adsorbant=mol,
+            output_dir=f'./results/{category}/{mol}'
+        )
 ```
 
 ## Output Files
@@ -338,22 +494,26 @@ Main calculator class for energy profile calculations.
 - `get_optimal_heights()`: Get optimal adsorption heights
 
 #### AdsorbantLibrary
-Library of predefined adsorbant molecules.
+Comprehensive library of 73+ predefined adsorbant molecules.
 
 **Methods:**
 - `get_adsorbant()`: Create adsorbant at specified position
-- `list_adsorbants()`: Get available adsorbants
-- `get_info()`: Get adsorbant information
+- `list_adsorbants()`: Get all available adsorbants (73+ total)
+- `get_info()`: Get adsorbant information and category
 - `get_elements()`: Get elements in adsorbant
+- `list_by_category()`: Get adsorbants by type (molecules, metal_clusters, organic, inorganic)
 
-#### SurfaceBuilder  
-Builder for crystal surfaces.
+### SurfaceBuilder  
+Builder for crystal surfaces and 2D materials.
 
 **Methods:**
-- `build_surface()`: Create surface structure
+- `build_surface()`: Create traditional crystal surface structure
+- `build_2d_material()`: Create 2D material surface (MoS2, graphene, etc.)
 - `get_surface_info()`: Analyze surface properties
 - `get_adsorption_sites()`: Find high-symmetry sites
-- `list_supported_materials()`: Get supported materials
+- `list_supported_materials()`: Get supported traditional materials
+- `list_2d_materials()`: Get available 2D materials (26 types)
+- `get_2d_material_info()`: Get 2D material properties
 
 #### EnergyProfilePlotter
 Plotting utilities for energy profiles.
