@@ -161,3 +161,51 @@ pseudopotentials/
 # Configuration files with sensitive paths
 *config_local*
 *config_private*
+
+# Workflow-specific output directories and artifacts
+unified_results/
+ml_calculations/
+dft_calculations/
+test_output/
+logs/
+job_scripts/
+scratch/
+
+# SLURM job outputs
+job.e*
+job.o*
+slurm-*.out
+
+# Molecular dynamics outputs
+md_output.traj
+md.log
+npt.log
+nvt.log
+nvt.traj
+optimization.traj
+XDATCAR
+
+# Density grid files
+density_grids.npy
+density_grids.npz
+density_animation.mp4
+
+# Test and validation artifacts
+*_test_*
+*_validation_*
+*_debug_*
+
+# Benchmark and timing data
+benchmark_results/
+timing_*.json
+performance_*.log
+
+# Temporary workflow files
+*.tmp.xyz
+*.tmp.cif
+*.tmp.yaml
+*.backup
+
+# Model cache (fairchem models can be large)
+.cache/
+torch_cache/

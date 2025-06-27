@@ -6,12 +6,13 @@ A comprehensive, cluster-optimized framework for calculating adsorption energy p
 
 - **🔥 Unified Workflow**: Single script combining job management, parallelization, and comprehensive analysis
 - **🤖 Smart Job Management**: Automatically manages job submissions across multiple cluster partitions with dependency tracking
-- **🔬 Hybrid ML+DFT Pipeline**: Uses ML for initial screening and DFT for selective validation
+- **🔬 Hybrid ML+DFT Pipeline**: Uses fairchem 2.2.0 with uma-s-1 model for ML screening and DFT for selective validation
 - **📚 Comprehensive Adsorbant Library**: 30+ adsorbants (metals, dimers, molecules, oxides) pre-configured
 - **🔧 Pseudopotential Management**: Validates and auto-downloads required pseudopotentials
 - **🖥️ Cluster-Agnostic Design**: Easily adaptable to different cluster environments
 - **📊 Advanced Monitoring**: Real-time job tracking with failure recovery and progress reporting
 - **📈 Rich Visualization**: Automated generation of energy profile reports and ML vs DFT comparisons
+- **⚡ Latest ML Models**: Updated to use fairchem 2.2.0 with uma-s-1 and support for both OMAT and OMC task types
 
 ## � Quick Start Guide
 
@@ -65,6 +66,31 @@ python unified_workflow.py --test-ml
 python unified_workflow.py --dry-run
 ```
 
+## 🔄 Recent Updates - Fairchem 2.2.0
+
+**Major Update**: The workflow has been updated to use fairchem 2.2.0 with the latest models:
+
+- **New ML Model**: Updated from `equiformer_v2_153M_omat` to `uma-s-1`
+- **Task Support**: Added support for both `omat` and `omc` task types
+- **Python Requirements**: Now requires Python 3.11+ (updated from 3.9)
+- **Environment**: Use the `fair` conda environment instead of `energy_calc`
+- **Available Models**: `uma-s-1`, `esen-md-direct-all-omol`, `esen-sm-conserving-all-omol`, `esen-sm-direct-all-omol`
+
+**Migration Guide**:
+```bash
+# If you have an existing setup, create a new environment
+conda create -n fair python=3.11 -y
+conda activate fair
+
+# Install updated dependencies
+pip install torch==2.6.0 torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+pip install torch-geometric torch-scatter torch-sparse torch-cluster --index-url https://download.pytorch.org/whl/cu121
+pip install fairchem-core==2.2.0
+
+# Test the new setup
+python unified_workflow.py --test-ml
+```
+
 #### ML-Only Testing (Fast Development)
 ```bash
 cd Only_ML_test/
@@ -103,26 +129,28 @@ python download_pseudo.py --list
 
 ### 2. Configuration (All Workflows)
 
-The system is pre-configured for all 42 requested adsorbants on MoS2. Edit `job_config.yaml` to customize:
+The system is pre-configured for all 30 requested adsorbants on MoS2. Edit `workflow_config.yaml` to customize:
 
 ```yaml
-# Pre-configured with all 42 adsorbants
+# Pre-configured with all 30 adsorbants
 materials: ['MoS2']
-adsorbants: ['H2O', 'Au2', 'Li', 'ZnO', 'F4TCNQ', 'Au', 'Ag', 'Pt', 'Pd', 'Ti', 'V', 'Cr', 'Mn', 'Fe', 'Co', 'Ni', 'Cu', 'Zn', 'Mo', 'Ru', 'Rh', 'W', 'Re', 'Os', 'Ir', 'Hg', 'Al', 'Ga', 'In', 'Sn', 'Sb', 'Pb', 'Bi', 'P', 'N', 'B', 'Si', 'Cl', 'S', 'Se', 'Te', 'TiO2', 'Sb2O3']
+adsorbants: ['Au2', 'Ag2', 'Pt2', 'Pd2', 'Cu2', 'Fe2', 'Co2', 'Ni2', 'Mn2', 'Ir2', 'Rh2', 'Re2', 'Ru2', 'Cd2', 'Al2', 'Zn2', 'Nb2', 'W2', 'Ta2', 'V2', 'C2', 'Ti2', 'Cr2', 'Na2', 'N2', 'O2', 'H2', 'ZnO', 'TiO2', 'Sb2O3']
 
-# ML and DFT settings
-ml_calculator: 'equiformer_v2_153M_omat'
+# ML and DFT settings (fairchem 2.2.0)
+ml_calculator: 'uma-s-1'      # Updated for fairchem 2.2.0
+task_name: 'omat'             # Choose 'omat' or 'omc' for different ML models
 pseudo_dir: '/home/afaiyad/QE/qe-7.4.1/pseudo'
 dft_settings:
   ecutwfc: 80
   ecutrho: 640
   kpts: [6, 6, 1]
 
-# Comprehensive workflow settings
-comprehensive:
-  dft_fraction: 0.3  # Run DFT on 30% of adsorbants
-  max_ml_jobs: 8     # Parallel ML jobs
-  max_dft_jobs: 4    # Parallel DFT jobs
+# Unified workflow settings
+workflow:
+  dft_fraction: 0.3     # Run DFT on 30% of adsorbants
+  max_parallel_ml: 4    # Parallel ML jobs
+  max_parallel_dft: 2   # Parallel DFT jobs
+  use_cluster: true     # Enable cluster submission
 ```
 
 ### 3. Monitor Progress (All Workflows)
@@ -506,8 +534,10 @@ tail -f logs/job_manager.log
 # Test ML model availability and setup
 python unified_workflow.py --test-ml
 
-# Check if equiformer model is loaded correctly
-python -c "from energy_profile_calculator.calculators import setup_ml_calculator; calc = setup_ml_calculator('equiformer_v2_153M_omat')"
+# Check if uma-s-1 model is loaded correctly (fairchem 2.2.0)
+python -c "from energy_profile_calculator.calculators import setup_ml_calculator; calc = setup_ml_calculator('uma-s-1')"
+
+# Available models in fairchem 2.2.0: uma-s-1, esen-md-direct-all-omol, esen-sm-conserving-all-omol, esen-sm-direct-all-omol
 ```
 
 **4. DFT Setup Issues**
