@@ -1280,7 +1280,286 @@ echo "Job completed at: $(date)"
         # Generate final report
         self.generate_comprehensive_report(ml_success, dft_success)
 
-    # ...existing code...
+    def test_dft_calculation(self):
+        """Test DFT calculation setup and input generation without running expensive calculations"""
+        print("🧪 Testing DFT calculation setup...")
+        
+        # Test adsorbant
+        test_adsorbant = "H2O"
+        test_output_dir = Path("test_dft_output")
+        test_output_dir.mkdir(exist_ok=True)
+        
+        success_count = 0
+        total_tests = 0
+        
+        try:
+            # Test 1: Check pseudopotentials
+            print("\n1️⃣  Testing pseudopotential availability...")
+            total_tests += 1
+            try:
+                self.check_pseudopotentials()
+                print("   ✅ Pseudopotentials available")
+                success_count += 1
+            except Exception as e:
+                print(f"   ❌ Pseudopotential check failed: {e}")
+            
+            # Test 2: Create mock ML results for testing
+            print("\n2️⃣  Creating mock ML results...")
+            total_tests += 1
+            try:
+                mock_ml_results = {
+                    'adsorbant': test_adsorbant,
+                    'heights': [2.5, 3.0, 3.5, 4.0, 4.5, 5.0],
+                    'ml_energies': [-0.5, -1.2, -0.8, -0.3, 0.2, 0.5],
+                    'calculation_type': 'ml'
+                }
+                ml_results_file = test_output_dir / f"{test_adsorbant}_ml_results.json"
+                with open(ml_results_file, 'w') as f:
+                    json.dump(mock_ml_results, f, indent=2)
+                print("   ✅ Mock ML results created")
+                success_count += 1
+            except Exception as e:
+                print(f"   ❌ Mock ML results creation failed: {e}")
+            
+            # Test 3: Test DFT point selection
+            print("\n3️⃣  Testing DFT point selection...")
+            total_tests += 1
+            try:
+                dft_points = self.select_dft_points_from_ml(mock_ml_results)
+                print(f"   ✅ Selected {len(dft_points)} DFT points: {[f'{p:.2f}' for p in dft_points]}")
+                success_count += 1
+            except Exception as e:
+                print(f"   ❌ DFT point selection failed: {e}")
+            
+            # Test 4: Test calculator setup
+            print("\n4️⃣  Testing DFT calculator setup...")
+            total_tests += 1
+            try:
+                from energy_profile_calculator.core import EnergyProfileCalculator
+                calculator = EnergyProfileCalculator()
+                
+                # Setup surface
+                calculator.surface = calculator.surface_builder.build_2d_material(
+                    material='MoS2',
+                    size=self.slab_settings.get('size', [3, 3]),
+                    vacuum=self.slab_settings.get('vacuum', 14.0)
+                )
+                
+                # Try to setup DFT calculator (without actually running calculations)
+                calculator.setup_calculators(
+                    use_ml=False,
+                    use_dft=True,
+                    dft_pseudo_dir=self.pseudo_dir,
+                    dft_num_cores=1  # Use minimal cores for testing
+                )
+                print("   ✅ DFT calculator setup successful")
+                success_count += 1
+            except Exception as e:
+                print(f"   ❌ DFT calculator setup failed: {e}")
+            
+            # Test 5: Test input file generation (dry run)
+            print("\n5️⃣  Testing input file generation...")
+            total_tests += 1
+            try:
+                orientation = self.get_adsorbant_orientation(test_adsorbant)
+                print(f"   Adsorbant orientation: {orientation}")
+                
+                # Test job creation
+                test_job = JobDefinition(
+                    job_id=f"test_dft_{test_adsorbant}",
+                    adsorbant=test_adsorbant,
+                    calculation_type='dft',
+                    partition='cpu',
+                    cores=16,
+                    memory='64G',
+                    time_limit='2:00:00',
+                    gpu_required=False
+                )
+                
+                # Test script generation
+                script_content = self.create_dft_cluster_script(test_job)
+                test_script_file = test_output_dir / f"test_dft_{test_adsorbant}.sh"
+                with open(test_script_file, 'w') as f:
+                    f.write(script_content)
+                
+                print(f"   ✅ DFT job script generated: {test_script_file}")
+                success_count += 1
+            except Exception as e:
+                print(f"   ❌ Input file generation failed: {e}")
+            
+            # Test 6: Test cluster submission (dry run)
+            print("\n6️⃣  Testing cluster job creation...")
+            total_tests += 1
+            try:
+                dft_jobs = self.create_dft_jobs([test_adsorbant])
+                print(f"   ✅ Created {len(dft_jobs)} DFT job(s)")
+                for job in dft_jobs:
+                    print(f"      - {job.job_id}: {job.adsorbant} on {job.partition}")
+                success_count += 1
+            except Exception as e:
+                print(f"   ❌ DFT job creation failed: {e}")
+            
+        finally:
+            # Cleanup
+            import shutil
+            if test_output_dir.exists():
+                shutil.rmtree(test_output_dir)
+                print(f"\n🧹 Cleaned up test directory: {test_output_dir}")
+        
+        # Summary
+        print(f"\n📊 DFT Test Summary: {success_count}/{total_tests} tests passed")
+        if success_count == total_tests:
+            print("🎉 All DFT tests passed! The system is ready for DFT calculations.")
+        else:
+            print("⚠️  Some DFT tests failed. Check the errors above.")
+            print("   Common issues:")
+            print("   - Missing pseudopotentials (run download_pseudo.py)")
+            print("   - Incorrect module loading")
+            print("   - Missing dependencies")
+        
+        return success_count == total_tests
+    
+    def test_ml_calculation(self):
+        """Test ML calculation setup and model loading"""
+        print("🧪 Testing ML calculation setup...")
+        
+        test_adsorbant = "H2O"
+        test_output_dir = Path("test_ml_output")
+        test_output_dir.mkdir(exist_ok=True)
+        
+        success_count = 0
+        total_tests = 0
+        
+        try:
+            # Test 1: Check ML model availability
+            print("\n1️⃣  Testing ML model availability...")
+            total_tests += 1
+            try:
+                if self.ml_calculator and hasattr(self.ml_calculator, 'model'):
+                    print(f"   ✅ ML model available: {type(self.ml_calculator).__name__}")
+                    success_count += 1
+                else:
+                    print("   ❌ ML model not properly configured")
+            except Exception as e:
+                print(f"   ❌ ML model check failed: {e}")
+            
+            # Test 2: Test calculator setup
+            print("\n2️⃣  Testing ML calculator setup...")
+            total_tests += 1
+            try:
+                from energy_profile_calculator.core import EnergyProfileCalculator
+                calculator = EnergyProfileCalculator()
+                
+                # Setup surface
+                calculator.surface = calculator.surface_builder.build_2d_material(
+                    material='MoS2',
+                    size=self.slab_settings.get('size', [3, 3]),
+                    vacuum=self.slab_settings.get('vacuum', 14.0)
+                )
+                
+                # Setup ML calculator
+                calculator.setup_calculators(
+                    use_ml=True,
+                    use_dft=False,
+                    ml_model=self.ml_calculator
+                )
+                print("   ✅ ML calculator setup successful")
+                success_count += 1
+            except Exception as e:
+                print(f"   ❌ ML calculator setup failed: {e}")
+            
+            # Test 3: Test z-range configuration
+            print("\n3️⃣  Testing z-range configuration...")
+            total_tests += 1
+            try:
+                z_start, z_end, z_step = self.z_ranges.get(test_adsorbant, [2.5, 8.0, 0.2])
+                orientation = self.get_adsorbant_orientation(test_adsorbant)
+                print(f"   Z-range: {z_start} to {z_end} Å (step: {z_step})")
+                print(f"   Orientation: {orientation}")
+                print("   ✅ Z-range configuration successful")
+                success_count += 1
+            except Exception as e:
+                print(f"   ❌ Z-range configuration failed: {e}")
+            
+            # Test 4: Test job creation
+            print("\n4️⃣  Testing ML job creation...")
+            total_tests += 1
+            try:
+                test_job = JobDefinition(
+                    job_id=f"test_ml_{test_adsorbant}",
+                    adsorbant=test_adsorbant,
+                    calculation_type='ml',
+                    partition='gpu',
+                    cores=8,
+                    memory='32G',
+                    time_limit='1:00:00',
+                    gpu_required=True
+                )
+                
+                # Test script generation
+                script_content = self.create_ml_cluster_script(test_job)
+                test_script_file = test_output_dir / f"test_ml_{test_adsorbant}.sh"
+                with open(test_script_file, 'w') as f:
+                    f.write(script_content)
+                
+                print(f"   ✅ ML job script generated: {test_script_file}")
+                success_count += 1
+            except Exception as e:
+                print(f"   ❌ ML job creation failed: {e}")
+            
+            # Test 5: Test batch job creation
+            print("\n5️⃣  Testing ML batch job creation...")
+            total_tests += 1
+            try:
+                ml_jobs = self.create_ml_jobs()
+                print(f"   ✅ Created {len(ml_jobs)} ML job(s)")
+                for job in ml_jobs[:3]:  # Show first 3
+                    print(f"      - {job.job_id}: {job.adsorbant} on {job.partition}")
+                if len(ml_jobs) > 3:
+                    print(f"      ... and {len(ml_jobs) - 3} more")
+                success_count += 1
+            except Exception as e:
+                print(f"   ❌ ML batch job creation failed: {e}")
+            
+            # Test 6: Test structure building
+            print("\n6️⃣  Testing structure building...")
+            total_tests += 1
+            try:
+                from energy_profile_calculator.core import EnergyProfileCalculator
+                calculator = EnergyProfileCalculator()
+                
+                # Build test surface
+                surface = calculator.surface_builder.build_2d_material(
+                    material='MoS2',
+                    size=[2, 2],  # Small for testing
+                    vacuum=10.0
+                )
+                
+                print(f"   ✅ Built MoS2 surface: {len(surface)} atoms")
+                success_count += 1
+            except Exception as e:
+                print(f"   ❌ Structure building failed: {e}")
+        
+        finally:
+            # Cleanup
+            import shutil
+            if test_output_dir.exists():
+                shutil.rmtree(test_output_dir)
+                print(f"\n🧹 Cleaned up test directory: {test_output_dir}")
+        
+        # Summary
+        print(f"\n📊 ML Test Summary: {success_count}/{total_tests} tests passed")
+        if success_count == total_tests:
+            print("🎉 All ML tests passed! The system is ready for ML calculations.")
+        else:
+            print("⚠️  Some ML tests failed. Check the errors above.")
+            print("   Common issues:")
+            print("   - Missing ML model file")
+            print("   - Incorrect model configuration")
+            print("   - Missing dependencies (fairchem, torch)")
+        
+        return success_count == total_tests
+
 def main():
     parser = argparse.ArgumentParser(description='Unified MoS2 Energy Profile Workflow')
     parser.add_argument('--config', default='workflow_config.yaml',
@@ -1294,7 +1573,11 @@ def main():
     parser.add_argument('--output-dir', type=str,
                        help='Output directory for single calculations')
     parser.add_argument('--dry-run', action='store_true',
-                       help='Generate job scripts but do not submit')
+                       help='Generate job scripts and show workflow plan but do not submit')
+    parser.add_argument('--test-dft', action='store_true',
+                       help='Test DFT calculation setup and input generation (validates DFT environment)')
+    parser.add_argument('--test-ml', action='store_true',
+                       help='Test ML calculation setup and model loading (validates ML environment)')
     parser.add_argument('--local', action='store_true',
                        help='Run locally instead of submitting to cluster')
     parser.add_argument('--ml-only', action='store_true',
@@ -1316,6 +1599,16 @@ def main():
     elif args.run_single_dft:
         # Single DFT calculation mode
         workflow.run_single_dft_calculation(args.run_single_dft, args.ml_results_dir, args.output_dir)
+        
+    elif args.test_dft:
+        # DFT test mode - actually test DFT calculation setup
+        print("🧪 DFT test mode - testing DFT calculation setup...")
+        workflow.test_dft_calculation()
+        
+    elif args.test_ml:
+        # ML test mode - test ML calculation setup
+        print("🧪 ML test mode - testing ML calculation setup...")
+        workflow.test_ml_calculation()
         
     elif args.dry_run:
         # Dry run mode
