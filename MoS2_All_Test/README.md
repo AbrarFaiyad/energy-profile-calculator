@@ -34,6 +34,12 @@ python unified_workflow.py --config local_config.yaml
 
 # Dry run to see what jobs would be created
 python unified_workflow.py --dry-run
+
+# Test DFT calculation setup and environment
+python unified_workflow.py --test-dft
+
+# Test ML calculation setup and model loading
+python unified_workflow.py --test-ml
 ```
 
 **What the unified workflow does:**
@@ -46,6 +52,18 @@ python unified_workflow.py --dry-run
 7. 📈 Generates comprehensive reports comparing ML vs DFT results
 
 ### ⚡ Alternative Quick Options
+
+#### Validation and Testing (New!)
+```bash
+# Test DFT calculation setup without running expensive calculations
+python unified_workflow.py --test-dft
+
+# Test ML calculation setup and model loading
+python unified_workflow.py --test-ml
+
+# Dry run to see job creation plan
+python unified_workflow.py --dry-run
+```
 
 #### ML-Only Testing (Fast Development)
 ```bash
@@ -485,20 +503,28 @@ tail -f logs/job_manager.log
 
 **3. ML Model Issues**
 ```bash
-# Test ML model availability
-cd Only_ML_test/
-python test_single_ml.py
+# Test ML model availability and setup
+python unified_workflow.py --test-ml
 
 # Check if equiformer model is loaded correctly
 python -c "from energy_profile_calculator.calculators import setup_ml_calculator; calc = setup_ml_calculator('equiformer_v2_153M_omat')"
 ```
 
-**4. DFT Convergence Issues**
+**4. DFT Setup Issues**
+```bash
+# Test DFT environment and pseudopotentials
+python unified_workflow.py --test-dft
+
+# Check pseudopotentials specifically
+python check_pseudopotentials.py --auto-fix
+```
+
+**5. DFT Convergence Issues**
 - Check `comprehensive_results/dft_results/` for failed calculations
 - Adjust convergence criteria in `job_config.yaml`
 - Reduce system size or increase energy cutoffs
 
-**5. Memory/Resource Issues**
+**6. Memory/Resource Issues**
 - Reduce `max_ml_jobs` and `max_dft_jobs` in configuration
 - Use smaller energy cutoffs for DFT
 - Run ML-only tests first to verify setup
@@ -534,6 +560,11 @@ A successful comprehensive workflow run will show:
 
 ### Quick Validation Commands
 ```bash
+# Test your environment before running the full workflow
+python unified_workflow.py --test-ml    # Test ML setup (~2 minutes)
+python unified_workflow.py --test-dft   # Test DFT setup (~3 minutes)
+python unified_workflow.py --dry-run    # Show workflow plan (instant)
+
 # Check ML results count (should be 42)
 ls comprehensive_results/ml_results/ | wc -l
 
@@ -558,10 +589,12 @@ grep -i error comprehensive_*.err
 ## 📞 Support
 
 ### Quick Debugging Steps
-1. **Start with ML-only tests**: `cd Only_ML_test && sbatch submit_single_ml.sh`
-2. **Check pseudopotentials**: `python check_pseudopotentials.py --auto-fix`
-3. **Validate configuration**: Review `job_config.yaml` for all 42 adsorbants
-4. **Monitor resources**: Use `squeue`, `sinfo`, `nvidia-smi`
+1. **Start with environment tests**: `python unified_workflow.py --test-ml && python unified_workflow.py --test-dft`
+2. **Preview the workflow**: `python unified_workflow.py --dry-run`
+3. **Test locally first**: `python unified_workflow.py --local --ml-only`
+4. **Check pseudopotentials**: `python check_pseudopotentials.py --auto-fix`
+5. **Validate configuration**: Review `workflow_config.yaml` for all 30 adsorbants
+6. **Monitor resources**: Use `squeue`, `sinfo`, `nvidia-smi`
 
 ### For Issues
 1. Check the troubleshooting section above
@@ -648,6 +681,127 @@ The unified workflow intelligently parallelizes across:
 4. **DFT Phase**: Submits DFT jobs with ML dependencies
 5. **Final Analysis**: Generates comparative reports
 
+## 🧪 Environment Testing & Validation
+
+Before running the full workflow, you can validate your environment setup:
+
+### **`--test-ml`**: ML Environment Test
+Tests ML calculation setup and model loading (takes ~2 minutes):
+- ✅ Checks ML model availability and loading
+- ✅ Tests calculator setup and configuration  
+- ✅ Validates structure building and z-range configuration
+- ✅ Tests job script generation for ML calculations
+- ✅ Verifies batch job creation across GPU partitions
+
+**Usage:**
+```bash
+python unified_workflow.py --test-ml
+```
+
+**Sample Output:**
+```
+🧪 Testing ML calculation setup...
+
+1️⃣  Testing ML model availability...
+   ✅ ML model available: EquiformerV2Calculator
+
+2️⃣  Testing ML calculator setup...
+   ✅ ML calculator setup successful
+
+3️⃣  Testing z-range configuration...
+   Z-range: 2.5 to 8.0 Å (step: 0.2)
+   Orientation: default
+   ✅ Z-range configuration successful
+
+📊 ML Test Summary: 6/6 tests passed
+🎉 All ML tests passed! The system is ready for ML calculations.
+```
+
+### **`--test-dft`**: DFT Environment Test
+Tests DFT calculation setup and input generation (takes ~3 minutes):
+- ✅ Checks pseudopotential availability for all elements
+- ✅ Creates mock ML results for testing DFT point selection
+- ✅ Tests DFT point selection algorithm
+- ✅ Tests DFT calculator setup and configuration
+- ✅ Tests input file generation and job script creation
+- ✅ Validates cluster job creation for DFT calculations
+
+**Usage:**
+```bash
+python unified_workflow.py --test-dft
+```
+
+**Sample Output:**
+```
+🧪 Testing DFT calculation setup...
+
+1️⃣  Testing pseudopotential availability...
+   ✅ Pseudopotentials available
+
+2️⃣  Creating mock ML results...
+   ✅ Mock ML results created
+
+3️⃣  Testing DFT point selection...
+   ✅ Selected 5 DFT points: ['3.00', '3.30', '3.70', '4.00', '5.00']
+
+4️⃣  Testing DFT calculator setup...
+   ✅ DFT calculator setup successful
+
+📊 DFT Test Summary: 6/6 tests passed
+🎉 All DFT tests passed! The system is ready for DFT calculations.
+```
+
+### **`--dry-run`**: Workflow Plan Preview
+Shows what jobs would be created without submitting them (instant):
+- 📋 Lists all ML jobs that would be created
+- 📋 Shows DFT subset selection strategy  
+- 📋 Displays cluster configuration and partition usage
+- 📋 Estimates resource requirements
+
+**Usage:**
+```bash
+python unified_workflow.py --dry-run
+```
+
+**Sample Output:**
+```
+🧪 Dry run mode - generating job definitions...
+
+Would create 30 ML jobs and 9 DFT jobs:
+
+ML Jobs:
+  ml_Au2_000: Au2 on cenvalarc.gpu
+  ml_Ag2_001: Ag2 on gpu
+  ml_Pt2_002: Pt2 on cenvalarc.gpu
+  ... and 27 more
+
+DFT Jobs:
+  dft_Au2_000: Au2 on long
+  dft_H2O_001: H2O on cenvalarc.compute
+  dft_ZnO_002: ZnO on long
+
+Cluster configuration:
+  cenvalarc.gpu: max 4 jobs, 32 cores
+  gpu: max 4 jobs, 28 cores
+  long: max 3 jobs, 56 cores
+```
+
+### **Recommended Testing Workflow:**
+```bash
+# 1. First, test your environment
+python unified_workflow.py --test-ml      # Validate ML setup
+python unified_workflow.py --test-dft     # Validate DFT setup
+
+# 2. Preview the workflow plan
+python unified_workflow.py --dry-run      # See what would run
+
+# 3. Start with a quick local test
+python unified_workflow.py --local --ml-only
+
+# 4. Run the full workflow
+python unified_workflow.py
+```
+
 ## 💻 Unified Workflow Deep Dive
 
 ### Core Components Merged:
@@ -731,6 +885,11 @@ The unified workflow intelligently parallelizes across:
 ```bash
 # Full workflow with custom config
 python unified_workflow.py --config my_custom_config.yaml
+
+# Environment validation and testing
+python unified_workflow.py --test-ml     # Test ML environment (~2 minutes)
+python unified_workflow.py --test-dft    # Test DFT environment (~3 minutes)
+python unified_workflow.py --dry-run     # Show job plan (instant)
 
 # Run only ML phase
 python unified_workflow.py --ml-only
