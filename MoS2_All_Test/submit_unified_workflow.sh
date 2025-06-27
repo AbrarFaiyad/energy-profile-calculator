@@ -6,7 +6,7 @@
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=16G
-#SBATCH --time=6-00:00:00
+#SBATCH --time=15-00:00:00
 #SBATCH --output=unified_workflow_%j.out
 #SBATCH --error=unified_workflow_%j.err
 

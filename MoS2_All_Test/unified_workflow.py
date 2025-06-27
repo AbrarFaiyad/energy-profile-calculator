@@ -115,7 +115,8 @@ class UnifiedWorkflow:
             config = yaml.safe_load(f)
         
         # Calculation settings
-        self.ml_calculator = config.get('ml_calculator', 'equiformer_v2_153M_omat')
+        self.ml_calculator = config.get('ml_calculator', 'uma-s-1')
+        self.task_name = config.get('task_name', 'omat')  # omat or omc
         self.pseudo_dir = config.get('pseudo_dir', '/home/afaiyad/QE/qe-7.4.1/pseudo')
         self.materials = config.get('materials', ['MoS2'])
         self.adsorbants = config.get('adsorbants', [])
@@ -145,7 +146,8 @@ class UnifiedWorkflow:
     def create_default_config(self):
         """Create default configuration file with cluster templates"""
         default_config = {
-            'ml_calculator': 'equiformer_v2_153M_omat',
+            'ml_calculator': 'uma-s-1',
+            'task_name': 'omat',  # or 'omc'
             'pseudo_dir': '/home/afaiyad/QE/qe-7.4.1/pseudo',
             'materials': ['MoS2'],
             'adsorbants': [
@@ -200,7 +202,7 @@ class UnifiedWorkflow:
                         'max_jobs': 3,
                         'cores_per_node': 56,
                         'memory_per_node': '256G',
-                        'time_limit': '5-00:00:00',
+                        'time_limit': '3-00:00:00',
                         'gpu_nodes': False
                     },
                     'cenvalarc.compute': {
@@ -305,7 +307,6 @@ class UnifiedWorkflow:
 
 #SBATCH --job-name={job.job_id}
 #SBATCH --partition={job.partition}
-#SBATCH --account=cenvalos
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task={job.cores}
@@ -366,7 +367,6 @@ echo "Job completed at: $(date)"
 
 #SBATCH --job-name={job.job_id}
 #SBATCH --partition={job.partition}
-#SBATCH --account=cenvalos
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task={job.cores}
@@ -1364,12 +1364,15 @@ echo "Job completed at: $(date)"
                 orientation = self.get_adsorbant_orientation(test_adsorbant)
                 print(f"   Adsorbant orientation: {orientation}")
                 
-                # Test job creation
+                # Test job creation with a valid partition
+                valid_partitions = list(self.cluster_config.partitions.keys())
+                test_partition = valid_partitions[0] if valid_partitions else 'long'
+                
                 test_job = JobDefinition(
                     job_id=f"test_dft_{test_adsorbant}",
                     adsorbant=test_adsorbant,
                     calculation_type='dft',
-                    partition='cpu',
+                    partition=test_partition,
                     cores=16,
                     memory='64G',
                     time_limit='2:00:00',
@@ -1435,11 +1438,13 @@ echo "Job completed at: $(date)"
             print("\n1️⃣  Testing ML model availability...")
             total_tests += 1
             try:
-                if self.ml_calculator and hasattr(self.ml_calculator, 'model'):
-                    print(f"   ✅ ML model available: {type(self.ml_calculator).__name__}")
+                # Check if the configured model name is valid
+                available_models = ['uma-s-1', 'esen-md-direct-all-omol', 'esen-sm-conserving-all-omol', 'esen-sm-direct-all-omol']
+                if self.ml_calculator in available_models:
+                    print(f"   ✅ ML model '{self.ml_calculator}' is available")
                     success_count += 1
                 else:
-                    print("   ❌ ML model not properly configured")
+                    print(f"   ❌ ML model '{self.ml_calculator}' not in available models: {available_models}")
             except Exception as e:
                 print(f"   ❌ ML model check failed: {e}")
             

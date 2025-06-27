@@ -2,7 +2,8 @@
 # This configuration file defines all settings for the comprehensive ML+DFT workflow
 
 # Calculation Settings
-ml_calculator: 'equiformer_v2_153M_omat'
+ml_calculator: 'uma-s-1'
+task_name: 'omat'  # omat or omc for fairchem 2.2.0
 pseudo_dir: '/home/afaiyad/QE/qe-7.4.1/pseudo'
 
 # Materials and Adsorbants

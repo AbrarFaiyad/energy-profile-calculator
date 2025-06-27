@@ -1,0 +1,75 @@
+# Unified MoS2 Energy Profile Workflow - Git Ignore Rules
+
+# Test outputs and temporary files
+*.out
+*.err
+*.log
+test_*_output/
+logs/
+
+# Job and result directories
+job_scripts/
+unified_results/
+ml_test_results/
+results/
+output/
+*_results/
+
+# Python cache and temp files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+.pytest_cache/
+.coverage
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# Environment files
+.env
+.venv
+env/
+venv/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary calculation files
+*.xyz
+*.cif
+*.vasp
+*.traj
+*.db
+*.pickle
+*.pkl
+
+# SLURM temporary files
+slurm-*.out
+slurm-*.err
+
+# Large model files (should be downloaded separately)
+*.pt
+*.pth
+*.model
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Temporary directories created during testing
+test_ml_output/
+test_dft_output/
+temp/
+tmp/
