@@ -1,0 +1,186 @@
+# Unified MoS2 Energy Profile Workflow Configuration
+# This configuration file defines all settings for the comprehensive ML+DFT workflow
+
+# Calculation Settings
+ml_calculator: 'equiformer_v2_153M_omat'
+pseudo_dir: '/home/afaiyad/QE/qe-7.4.1/pseudo'
+
+# Materials and Adsorbants
+materials: ['MoS2']
+adsorbants:
+  # Metal dimers (neutral molecules available in library)
+  - 'Au2'
+  - 'Ag2'
+  - 'Pt2'
+  - 'Pd2'
+  - 'Cu2'
+  - 'Fe2'
+  - 'Co2'
+  - 'Ni2'
+  - 'Mn2'
+  - 'Ir2'
+  - 'Rh2'
+  - 'Re2'
+  - 'Ru2'
+  - 'Cd2'
+  - 'Al2'
+  - 'Zn2'
+  - 'Nb2'
+  - 'W2'
+  - 'Ta2'
+  - 'V2'
+  - 'C2'
+  - 'Ti2'
+  - 'Cr2'
+  - 'Na2'
+  # Small molecules
+  - 'N2'
+  - 'O2'
+  - 'H2'
+  # Metal oxides
+  - 'ZnO'
+  - 'TiO2'
+  - 'Sb2O3'
+
+# Height ranges for each adsorbant (z_start, z_end, z_step in Angstroms)
+z_ranges:
+  Au2: [2.5, 8.0, 0.2]
+  Ag2: [2.5, 8.0, 0.2]
+  Pt2: [2.5, 8.0, 0.2]
+  Pd2: [2.5, 8.0, 0.2]
+  Cu2: [2.5, 8.0, 0.2]
+  Fe2: [2.5, 8.0, 0.2]
+  Co2: [2.5, 8.0, 0.2]
+  Ni2: [2.5, 8.0, 0.2]
+  Mn2: [2.5, 8.0, 0.2]
+  Ir2: [2.5, 8.0, 0.2]
+  Rh2: [2.5, 8.0, 0.2]
+  Re2: [2.5, 8.0, 0.2]
+  Ru2: [2.5, 8.0, 0.2]
+  Cd2: [2.5, 8.0, 0.2]
+  Al2: [2.5, 8.0, 0.2]
+  Zn2: [2.5, 8.0, 0.2]
+  Nb2: [2.5, 8.0, 0.2]
+  W2: [2.5, 8.0, 0.2]
+  Ta2: [2.5, 8.0, 0.2]
+  V2: [2.5, 8.0, 0.2]
+  C2: [2.5, 8.0, 0.2]
+  Ti2: [2.5, 8.0, 0.2]
+  Cr2: [2.5, 8.0, 0.2]
+  Na2: [2.5, 8.0, 0.2]
+  N2: [2.5, 8.0, 0.2]
+  O2: [2.5, 8.0, 0.2]
+  H2: [2.5, 8.0, 0.2]
+  ZnO: [2.5, 8.0, 0.2]
+  TiO2: [2.5, 8.0, 0.2]
+  Sb2O3: [2.5, 8.0, 0.2]
+
+# DFT calculation settings
+dft_settings:
+  ecutwfc: 80
+  ecutrho: 640
+  kpts: [6, 6, 1]
+  conv_thr: 1.0e-8
+  mixing_beta: 0.3
+  electron_maxstep: 200
+  vdw_corr: 'grimme-d3'
+  functional: 'pbe'
+
+# Slab settings
+slab_settings:
+  size: [3, 3]    # 3x3 supercell
+  vacuum: 14.0    # 14 Angstrom vacuum
+  layers: 1       # Single layer MoS2
+
+# Workflow control
+workflow:
+  dft_fraction: 0.3              # Run DFT on 30% of adsorbants
+  max_parallel_ml: 4             # Maximum parallel ML jobs
+  max_parallel_dft: 2            # Maximum parallel DFT jobs
+  use_cluster: true              # Use cluster job submission
+  local_cores: 8                 # Cores for local execution
+  max_monitoring_hours: 48       # Maximum time to monitor jobs
+
+# Cluster configuration (adapt this for your cluster)
+cluster:
+  partitions:
+    cenvalarc.gpu:
+      max_jobs: 4
+      cores_per_node: 32
+      memory_per_node: '128G'
+      time_limit: '2-23:59:00'
+      gpu_nodes: true
+      constraint: 'gpu'
+      account: 'cenvalos'
+    
+    gpu:
+      max_jobs: 4
+      cores_per_node: 28
+      memory_per_node: '128G'
+      time_limit: '2-23:59:00'
+      gpu_nodes: true
+      account: 'cenvalos'
+    
+    long:
+      max_jobs: 3
+      cores_per_node: 56
+      memory_per_node: '256G'
+      time_limit: '5-00:00:00'
+      gpu_nodes: false
+      account: 'cenvalos'
+    
+    cenvalarc.compute:
+      max_jobs: 3
+      cores_per_node: 64
+      memory_per_node: '256G'
+      time_limit: '3-00:00:00'
+      gpu_nodes: false
+      account: 'cenvalos'
+    
+    pi.amartini:
+      max_jobs: 3
+      cores_per_node: 56
+      memory_per_node: '256G'
+      time_limit: '7-00:00:00'
+      gpu_nodes: false
+      account: 'cenvalos'
+  
+  # Module loading (adapt for your cluster)
+  modules:
+    - 'anaconda3/2023.09'
+    - 'cuda/12.1'
+    - 'fftw'
+    - 'quantum-espresso/7.1'
+    - 'mpich/3.4.2-intel-2021.4.0'
+  
+  # Environment setup commands
+  environment_setup:
+    - 'source activate base'
+    - 'export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK'
+  
+  # Job submission commands (adapt for PBS/other schedulers)
+  job_submit_command: 'sbatch'
+  job_status_command: 'squeue'
+  user_env_var: 'USER'
+
+# Job resource allocation
+job_resources:
+  ml_gpu:
+    cores: 4
+    memory: '32G'
+    time: '2-00:00:00'
+    gpu: 1
+  
+  dft_cpu:
+    cores: 32
+    memory: '128G'
+    time: '3-00:00:00'
+    gpu: 0
+
+# Analysis settings
+analysis:
+  create_plots: true
+  save_structures: true
+  generate_report: true
+  plot_format: 'png'
+  plot_dpi: 300

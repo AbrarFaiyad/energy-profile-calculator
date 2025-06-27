@@ -1,0 +1,1253 @@
+Job started at: Thu Jun 26 16:09:56 PDT 2025
+Job ID: 1531375
+Node: gnode003
+Partition: gpu
+GPU: 0
+Working directory: /home/afaiyad/borgstore/energy_profile_calculator/MoS2_All_Test
+=================================
+Python version: Python 3.12.10
+PyTorch version: 2.6.0
+CUDA available: True
+GPU count: 1
+=================================
+Starting ML adsorbant energy profile calculations...
+Testing all 42 adsorbants on MoS2 with ML potential
+=================================
+🚀 MoS2 Adsorbant ML Energy Profile Testing
+============================================================
+📋 Testing ML sweeps for 42 adsorbants...
+🎯 Surface: MoS2
+🧠 ML Calculator: uma-s-1
+------------------------------------------------------------
+
+[1/42] Testing Au2...
+  ✅ Adsorbant available: Gold dimer
+  📏 Z-range: 2.5 to 8.0 Å (step: 0.3)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: parallel
+
+=== Energy Profile Calculation ===
+Adsorbant: Au2
+Surface: MoS2
+Height range: 2.5 to 8.0 Å (step: 0.3 Å)
+Number of points: 20
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~10 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/Au2_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/Au2_on_MoS2
+  ✅ ML sweep completed in 4.3s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[2/42] Testing Ag2...
+  ✅ Adsorbant available: Silver dimer
+  📏 Z-range: 2.5 to 8.0 Å (step: 0.3)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: parallel
+
+=== Energy Profile Calculation ===
+Adsorbant: Ag2
+Surface: MoS2
+Height range: 2.5 to 8.0 Å (step: 0.3 Å)
+Number of points: 20
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~10 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/Ag2_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/Ag2_on_MoS2
+  ✅ ML sweep completed in 3.9s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[3/42] Testing Pt2...
+  ✅ Adsorbant available: Platinum dimer
+  📏 Z-range: 2.5 to 8.0 Å (step: 0.3)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: parallel
+
+=== Energy Profile Calculation ===
+Adsorbant: Pt2
+Surface: MoS2
+Height range: 2.5 to 8.0 Å (step: 0.3 Å)
+Number of points: 20
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~10 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/Pt2_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/Pt2_on_MoS2
+  ✅ ML sweep completed in 3.6s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[4/42] Testing Pd2...
+  ✅ Adsorbant available: Palladium dimer
+  📏 Z-range: 2.5 to 8.0 Å (step: 0.3)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: parallel
+
+=== Energy Profile Calculation ===
+Adsorbant: Pd2
+Surface: MoS2
+Height range: 2.5 to 8.0 Å (step: 0.3 Å)
+Number of points: 20
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~10 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/Pd2_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/Pd2_on_MoS2
+  ✅ ML sweep completed in 3.4s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[5/42] Testing Cu2...
+  ✅ Adsorbant available: Copper dimer
+  📏 Z-range: 2.3 to 8.0 Å (step: 0.3)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: parallel
+
+=== Energy Profile Calculation ===
+Adsorbant: Cu2
+Surface: MoS2
+Height range: 2.3 to 8.0 Å (step: 0.3 Å)
+Number of points: 21
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~10 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/Cu2_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/Cu2_on_MoS2
+  ✅ ML sweep completed in 3.7s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[6/42] Testing Fe2...
+  ✅ Adsorbant available: Iron dimer
+  📏 Z-range: 2.3 to 8.0 Å (step: 0.3)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: parallel
+
+=== Energy Profile Calculation ===
+Adsorbant: Fe2
+Surface: MoS2
+Height range: 2.3 to 8.0 Å (step: 0.3 Å)
+Number of points: 21
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~10 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/Fe2_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/Fe2_on_MoS2
+  ✅ ML sweep completed in 3.6s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[7/42] Testing Co2...
+  ✅ Adsorbant available: Cobalt dimer
+  📏 Z-range: 2.3 to 8.0 Å (step: 0.3)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: parallel
+
+=== Energy Profile Calculation ===
+Adsorbant: Co2
+Surface: MoS2
+Height range: 2.3 to 8.0 Å (step: 0.3 Å)
+Number of points: 21
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~10 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/Co2_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/Co2_on_MoS2
+  ✅ ML sweep completed in 3.6s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[8/42] Testing Ni2...
+  ✅ Adsorbant available: Nickel dimer
+  📏 Z-range: 2.3 to 8.0 Å (step: 0.3)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: parallel
+
+=== Energy Profile Calculation ===
+Adsorbant: Ni2
+Surface: MoS2
+Height range: 2.3 to 8.0 Å (step: 0.3 Å)
+Number of points: 21
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~10 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/Ni2_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/Ni2_on_MoS2
+  ✅ ML sweep completed in 4.0s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[9/42] Testing Mn2...
+  ✅ Adsorbant available: Manganese dimer
+  📏 Z-range: 2.3 to 8.0 Å (step: 0.3)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: parallel
+
+=== Energy Profile Calculation ===
+Adsorbant: Mn2
+Surface: MoS2
+Height range: 2.3 to 8.0 Å (step: 0.3 Å)
+Number of points: 21
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~10 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/Mn2_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/Mn2_on_MoS2
+  ✅ ML sweep completed in 3.6s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[10/42] Testing Ir2...
+  ✅ Adsorbant available: Iridium dimer
+  📏 Z-range: 2.5 to 8.0 Å (step: 0.3)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: parallel
+
+=== Energy Profile Calculation ===
+Adsorbant: Ir2
+Surface: MoS2
+Height range: 2.5 to 8.0 Å (step: 0.3 Å)
+Number of points: 20
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~10 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/Ir2_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/Ir2_on_MoS2
+  ✅ ML sweep completed in 3.9s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[11/42] Testing Rh2...
+  ✅ Adsorbant available: Rhodium dimer
+  📏 Z-range: 2.5 to 8.0 Å (step: 0.3)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: parallel
+
+=== Energy Profile Calculation ===
+Adsorbant: Rh2
+Surface: MoS2
+Height range: 2.5 to 8.0 Å (step: 0.3 Å)
+Number of points: 20
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~10 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/Rh2_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/Rh2_on_MoS2
+  ✅ ML sweep completed in 3.7s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[12/42] Testing Re2...
+  ✅ Adsorbant available: Rhenium dimer
+  📏 Z-range: 2.5 to 8.0 Å (step: 0.3)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: parallel
+
+=== Energy Profile Calculation ===
+Adsorbant: Re2
+Surface: MoS2
+Height range: 2.5 to 8.0 Å (step: 0.3 Å)
+Number of points: 20
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~10 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/Re2_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/Re2_on_MoS2
+  ✅ ML sweep completed in 3.5s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[13/42] Testing Ru2...
+  ✅ Adsorbant available: Ruthenium dimer
+  📏 Z-range: 2.5 to 8.0 Å (step: 0.3)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: parallel
+
+=== Energy Profile Calculation ===
+Adsorbant: Ru2
+Surface: MoS2
+Height range: 2.5 to 8.0 Å (step: 0.3 Å)
+Number of points: 20
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~10 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/Ru2_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/Ru2_on_MoS2
+  ✅ ML sweep completed in 3.4s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[14/42] Testing Cd2...
+  ✅ Adsorbant available: Cadmium dimer
+  📏 Z-range: 2.5 to 8.0 Å (step: 0.3)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: parallel
+
+=== Energy Profile Calculation ===
+Adsorbant: Cd2
+Surface: MoS2
+Height range: 2.5 to 8.0 Å (step: 0.3 Å)
+Number of points: 20
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~10 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/Cd2_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/Cd2_on_MoS2
+  ✅ ML sweep completed in 3.4s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[15/42] Testing Al2...
+  ✅ Adsorbant available: Aluminum dimer
+  📏 Z-range: 2.3 to 8.0 Å (step: 0.3)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: parallel
+
+=== Energy Profile Calculation ===
+Adsorbant: Al2
+Surface: MoS2
+Height range: 2.3 to 8.0 Å (step: 0.3 Å)
+Number of points: 21
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~10 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/Al2_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/Al2_on_MoS2
+  ✅ ML sweep completed in 3.6s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[16/42] Testing Zn2...
+  ✅ Adsorbant available: Zinc dimer
+  📏 Z-range: 2.3 to 8.0 Å (step: 0.3)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: parallel
+
+=== Energy Profile Calculation ===
+Adsorbant: Zn2
+Surface: MoS2
+Height range: 2.3 to 8.0 Å (step: 0.3 Å)
+Number of points: 21
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~10 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/Zn2_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/Zn2_on_MoS2
+  ✅ ML sweep completed in 3.8s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[17/42] Testing Nb2...
+  ✅ Adsorbant available: Niobium dimer
+  📏 Z-range: 2.5 to 8.0 Å (step: 0.3)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: parallel
+
+=== Energy Profile Calculation ===
+Adsorbant: Nb2
+Surface: MoS2
+Height range: 2.5 to 8.0 Å (step: 0.3 Å)
+Number of points: 20
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~10 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/Nb2_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/Nb2_on_MoS2
+  ✅ ML sweep completed in 3.3s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[18/42] Testing W2...
+  ✅ Adsorbant available: Tungsten dimer
+  📏 Z-range: 2.5 to 8.0 Å (step: 0.3)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: parallel
+
+=== Energy Profile Calculation ===
+Adsorbant: W2
+Surface: MoS2
+Height range: 2.5 to 8.0 Å (step: 0.3 Å)
+Number of points: 20
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~10 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/W2_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/W2_on_MoS2
+  ✅ ML sweep completed in 3.4s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[19/42] Testing Ta2...
+  ✅ Adsorbant available: Tantalum dimer
+  📏 Z-range: 2.5 to 8.0 Å (step: 0.3)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: parallel
+
+=== Energy Profile Calculation ===
+Adsorbant: Ta2
+Surface: MoS2
+Height range: 2.5 to 8.0 Å (step: 0.3 Å)
+Number of points: 20
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~10 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/Ta2_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/Ta2_on_MoS2
+  ✅ ML sweep completed in 3.5s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[20/42] Testing V2...
+  ✅ Adsorbant available: Vanadium dimer
+  📏 Z-range: 2.3 to 8.0 Å (step: 0.3)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: parallel
+
+=== Energy Profile Calculation ===
+Adsorbant: V2
+Surface: MoS2
+Height range: 2.3 to 8.0 Å (step: 0.3 Å)
+Number of points: 21
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~10 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/V2_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/V2_on_MoS2
+  ✅ ML sweep completed in 3.5s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[21/42] Testing C2...
+  ✅ Adsorbant available: Carbon dimer
+  📏 Z-range: 2.0 to 8.0 Å (step: 0.2)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: parallel
+
+=== Energy Profile Calculation ===
+Adsorbant: C2
+Surface: MoS2
+Height range: 2.0 to 8.0 Å (step: 0.2 Å)
+Number of points: 31
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~16 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/C2_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/C2_on_MoS2
+  ✅ ML sweep completed in 5.2s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[22/42] Testing Li...
+  ✅ Adsorbant available: Lithium atom
+  📏 Z-range: 2.0 to 6.0 Å (step: 0.2)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: default
+
+=== Energy Profile Calculation ===
+Adsorbant: Li
+Surface: MoS2
+Height range: 2.0 to 6.0 Å (step: 0.2 Å)
+Number of points: 21
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~10 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/Li_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/Li_on_MoS2
+  ✅ ML sweep completed in 3.5s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[23/42] Testing Na...
+  ✅ Adsorbant available: Sodium atom
+  📏 Z-range: 2.2 to 6.5 Å (step: 0.2)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: default
+
+=== Energy Profile Calculation ===
+Adsorbant: Na
+Surface: MoS2
+Height range: 2.2 to 6.5 Å (step: 0.2 Å)
+Number of points: 23
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~12 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/Na_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/Na_on_MoS2
+  ✅ ML sweep completed in 3.9s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[24/42] Testing P...
+  ✅ Adsorbant available: Phosphorus atom
+  📏 Z-range: 2.0 to 7.0 Å (step: 0.2)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: default
+
+=== Energy Profile Calculation ===
+Adsorbant: P
+Surface: MoS2
+Height range: 2.0 to 7.0 Å (step: 0.2 Å)
+Number of points: 26
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~13 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/P_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/P_on_MoS2
+  ✅ ML sweep completed in 4.3s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[25/42] Testing N...
+  ✅ Adsorbant available: Nitrogen atom
+  📏 Z-range: 2.0 to 7.0 Å (step: 0.2)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: default
+
+=== Energy Profile Calculation ===
+Adsorbant: N
+Surface: MoS2
+Height range: 2.0 to 7.0 Å (step: 0.2 Å)
+Number of points: 26
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~13 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/N_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/N_on_MoS2
+  ✅ ML sweep completed in 4.4s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[26/42] Testing B...
+  ✅ Adsorbant available: Boron atom
+  📏 Z-range: 2.0 to 7.0 Å (step: 0.2)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: default
+
+=== Energy Profile Calculation ===
+Adsorbant: B
+Surface: MoS2
+Height range: 2.0 to 7.0 Å (step: 0.2 Å)
+Number of points: 26
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~13 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/B_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/B_on_MoS2
+  ✅ ML sweep completed in 4.3s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[27/42] Testing Si...
+  ✅ Adsorbant available: Silicon atom
+  📏 Z-range: 2.2 to 7.5 Å (step: 0.2)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: default
+
+=== Energy Profile Calculation ===
+Adsorbant: Si
+Surface: MoS2
+Height range: 2.2 to 7.5 Å (step: 0.2 Å)
+Number of points: 28
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~14 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/Si_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/Si_on_MoS2
+  ✅ ML sweep completed in 4.7s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[28/42] Testing F...
+  ✅ Adsorbant available: Fluorine atom
+  📏 Z-range: 2.0 to 6.5 Å (step: 0.2)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: default
+
+=== Energy Profile Calculation ===
+Adsorbant: F
+Surface: MoS2
+Height range: 2.0 to 6.5 Å (step: 0.2 Å)
+Number of points: 24
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~12 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/F_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/F_on_MoS2
+  ✅ ML sweep completed in 4.0s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[29/42] Testing Cl...
+  ✅ Adsorbant available: Chlorine atom
+  📏 Z-range: 2.2 to 7.0 Å (step: 0.2)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: default
+
+=== Energy Profile Calculation ===
+Adsorbant: Cl
+Surface: MoS2
+Height range: 2.2 to 7.0 Å (step: 0.2 Å)
+Number of points: 25
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~12 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/Cl_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/Cl_on_MoS2
+  ✅ ML sweep completed in 4.1s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[30/42] Testing S...
+  ✅ Adsorbant available: Sulfur atom
+  📏 Z-range: 2.2 to 7.5 Å (step: 0.2)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: default
+
+=== Energy Profile Calculation ===
+Adsorbant: S
+Surface: MoS2
+Height range: 2.2 to 7.5 Å (step: 0.2 Å)
+Number of points: 28
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~14 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/S_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/S_on_MoS2
+  ✅ ML sweep completed in 4.7s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[31/42] Testing Se...
+  ✅ Adsorbant available: Selenium atom
+  📏 Z-range: 2.3 to 7.5 Å (step: 0.2)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: default
+
+=== Energy Profile Calculation ===
+Adsorbant: Se
+Surface: MoS2
+Height range: 2.3 to 7.5 Å (step: 0.2 Å)
+Number of points: 27
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~14 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/Se_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/Se_on_MoS2
+  ✅ ML sweep completed in 4.4s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[32/42] Testing Te...
+  ✅ Adsorbant available: Tellurium atom
+  📏 Z-range: 2.5 to 8.0 Å (step: 0.2)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: default
+
+=== Energy Profile Calculation ===
+Adsorbant: Te
+Surface: MoS2
+Height range: 2.5 to 8.0 Å (step: 0.2 Å)
+Number of points: 29
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~14 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/Te_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/Te_on_MoS2
+  ✅ ML sweep completed in 4.7s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[33/42] Testing O...
+  ✅ Adsorbant available: Oxygen atom
+  📏 Z-range: 2.0 to 6.5 Å (step: 0.2)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: default
+
+=== Energy Profile Calculation ===
+Adsorbant: O
+Surface: MoS2
+Height range: 2.0 to 6.5 Å (step: 0.2 Å)
+Number of points: 24
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~12 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/O_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/O_on_MoS2
+  ✅ ML sweep completed in 4.4s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[34/42] Testing F4TCNQ...
+  ✅ Adsorbant available: 2,3,5,6-tetrafluoro-7,7,8,8-tetracyanoquinodimethane
+  📏 Z-range: 3.0 to 8.5 Å (step: 0.3)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: flat
+
+=== Energy Profile Calculation ===
+Adsorbant: F4TCNQ
+Surface: MoS2
+Height range: 3.0 to 8.5 Å (step: 0.3 Å)
+Number of points: 20
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~10 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/F4TCNQ_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/F4TCNQ_on_MoS2
+  ✅ ML sweep completed in 3.7s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[35/42] Testing PTCDA...
+  ✅ Adsorbant available: Perylene-3,4,9,10-tetracarboxylic dianhydride
+  📏 Z-range: 3.2 to 8.5 Å (step: 0.3)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: flat
+
+=== Energy Profile Calculation ===
+Adsorbant: PTCDA
+Surface: MoS2
+Height range: 3.2 to 8.5 Å (step: 0.3 Å)
+Number of points: 19
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~10 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/PTCDA_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/PTCDA_on_MoS2
+  ✅ ML sweep completed in 3.6s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[36/42] Testing tetracene...
+  ✅ Adsorbant available: Tetracene
+  📏 Z-range: 3.0 to 8.0 Å (step: 0.3)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: flat
+
+=== Energy Profile Calculation ===
+Adsorbant: tetracene
+Surface: MoS2
+Height range: 3.0 to 8.0 Å (step: 0.3 Å)
+Number of points: 18
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~9 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/tetracene_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/tetracene_on_MoS2
+  ✅ ML sweep completed in 3.2s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[37/42] Testing TCNQ...
+  ✅ Adsorbant available: Tetracyanoquinodimethane
+  📏 Z-range: 2.8 to 8.0 Å (step: 0.3)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: flat
+
+=== Energy Profile Calculation ===
+Adsorbant: TCNQ
+Surface: MoS2
+Height range: 2.8 to 8.0 Å (step: 0.3 Å)
+Number of points: 19
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~10 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/TCNQ_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/TCNQ_on_MoS2
+  ✅ ML sweep completed in 3.6s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[38/42] Testing TCNE...
+  ✅ Adsorbant available: Tetracyanoethylene
+  📏 Z-range: 2.5 to 7.5 Å (step: 0.3)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: flat
+
+=== Energy Profile Calculation ===
+Adsorbant: TCNE
+Surface: MoS2
+Height range: 2.5 to 7.5 Å (step: 0.3 Å)
+Number of points: 18
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~9 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/TCNE_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/TCNE_on_MoS2
+  ✅ ML sweep completed in 3.0s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[39/42] Testing TTF...
+  ✅ Adsorbant available: Tetrathiafulvalene
+  📏 Z-range: 2.8 to 8.0 Å (step: 0.3)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: flat
+
+=== Energy Profile Calculation ===
+Adsorbant: TTF
+Surface: MoS2
+Height range: 2.8 to 8.0 Å (step: 0.3 Å)
+Number of points: 19
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~10 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/TTF_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/TTF_on_MoS2
+  ✅ ML sweep completed in 3.3s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[40/42] Testing BV...
+  ✅ Adsorbant available: Benzyl viologen
+  📏 Z-range: 3.0 to 8.5 Å (step: 0.3)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: flat
+
+=== Energy Profile Calculation ===
+Adsorbant: BV
+Surface: MoS2
+Height range: 3.0 to 8.5 Å (step: 0.3 Å)
+Number of points: 20
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~10 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/BV_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/BV_on_MoS2
+  ✅ ML sweep completed in 3.5s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[41/42] Testing ZnO...
+  ✅ Adsorbant available: Zinc oxide unit
+  📏 Z-range: 2.5 to 8.0 Å (step: 0.3)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: parallel
+
+=== Energy Profile Calculation ===
+Adsorbant: ZnO
+Surface: MoS2
+Height range: 2.5 to 8.0 Å (step: 0.3 Å)
+Number of points: 20
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~10 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/ZnO_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/ZnO_on_MoS2
+  ✅ ML sweep completed in 3.5s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+[42/42] Testing TiO2...
+  ✅ Adsorbant available: Titanium dioxide unit
+  📏 Z-range: 2.8 to 8.5 Å (step: 0.3)
+=== Setting up calculators ===
+Initializing uma-s-1 model on cuda...
+ML calculators initialized successfully
+ML calculators ready: ['omc', 'omat']
+  🔬 Running ML energy sweep...
+  🔄 Using orientation: linear
+
+=== Energy Profile Calculation ===
+Adsorbant: TiO2
+Surface: MoS2
+Height range: 2.8 to 8.5 Å (step: 0.3 Å)
+Number of points: 21
+Adsorbant position (x,y): (4.740, 4.105)
+Estimated time: ~10 min (ML only)
+
+--- Running OMAT calculations ---
+
+--- Running OMC calculations ---
+Results saved to ml_test_results/TiO2_on_MoS2
+
+🎉 Energy profile calculation completed!
+Results saved to: ml_test_results/TiO2_on_MoS2
+  ✅ ML sweep completed in 3.9s
+  ❌ Error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+============================================================
+📊 ML Testing Summary:
+  ✅ Successful: 0/42
+  ❌ Failed: 42/42
+
+❌ Failed adsorbants:
+    - Au2
+    - Ag2
+    - Pt2
+    - Pd2
+    - Cu2
+    - Fe2
+    - Co2
+    - Ni2
+    - Mn2
+    - Ir2
+    - Rh2
+    - Re2
+    - Ru2
+    - Cd2
+    - Al2
+    - Zn2
+    - Nb2
+    - W2
+    - Ta2
+    - V2
+    - C2
+    - Li
+    - Na
+    - P
+    - N
+    - B
+    - Si
+    - F
+    - Cl
+    - S
+    - Se
+    - Te
+    - O
+    - F4TCNQ
+    - PTCDA
+    - tetracene
+    - TCNQ
+    - TCNE
+    - TTF
+    - BV
+    - ZnO
+    - TiO2
+
+📝 Summary report saved to: ml_test_results/ml_test_summary.yaml
+
+🎉 ML testing completed!
+⚠️  42 adsorbants failed testing
+=================================
+Job completed at: Thu Jun 26 16:13:58 PDT 2025

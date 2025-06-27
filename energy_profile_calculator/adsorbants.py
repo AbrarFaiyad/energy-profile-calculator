@@ -219,6 +219,118 @@ class AdsorbantLibrary:
                 'charge': 0,
                 'multiplicity': 3
             },
+            'Ag2': {
+                'description': 'Silver dimer',
+                'elements': ['Ag', 'Ag'],
+                'geometry': self._ag2_geometry,
+                'orientations': ['parallel', 'perpendicular'],
+                'charge': 0,
+                'multiplicity': 1
+            },
+            'Mn2': {
+                'description': 'Manganese dimer',
+                'elements': ['Mn', 'Mn'],
+                'geometry': self._mn2_geometry,
+                'orientations': ['parallel', 'perpendicular'],
+                'charge': 0,
+                'multiplicity': 1
+            },
+            'Ir2': {
+                'description': 'Iridium dimer',
+                'elements': ['Ir', 'Ir'],
+                'geometry': self._ir2_geometry,
+                'orientations': ['parallel', 'perpendicular'],
+                'charge': 0,
+                'multiplicity': 3
+            },
+            'Rh2': {
+                'description': 'Rhodium dimer',
+                'elements': ['Rh', 'Rh'],
+                'geometry': self._rh2_geometry,
+                'orientations': ['parallel', 'perpendicular'],
+                'charge': 0,
+                'multiplicity': 3
+            },
+            'Re2': {
+                'description': 'Rhenium dimer',
+                'elements': ['Re', 'Re'],
+                'geometry': self._re2_geometry,
+                'orientations': ['parallel', 'perpendicular'],
+                'charge': 0,
+                'multiplicity': 1
+            },
+            'Ru2': {
+                'description': 'Ruthenium dimer',
+                'elements': ['Ru', 'Ru'],
+                'geometry': self._ru2_geometry,
+                'orientations': ['parallel', 'perpendicular'],
+                'charge': 0,
+                'multiplicity': 3
+            },
+            'Cd2': {
+                'description': 'Cadmium dimer',
+                'elements': ['Cd', 'Cd'],
+                'geometry': self._cd2_geometry,
+                'orientations': ['parallel', 'perpendicular'],
+                'charge': 0,
+                'multiplicity': 1
+            },
+            'Al2': {
+                'description': 'Aluminum dimer',
+                'elements': ['Al', 'Al'],
+                'geometry': self._al2_geometry,
+                'orientations': ['parallel', 'perpendicular'],
+                'charge': 0,
+                'multiplicity': 3
+            },
+            'Zn2': {
+                'description': 'Zinc dimer',
+                'elements': ['Zn', 'Zn'],
+                'geometry': self._zn2_geometry,
+                'orientations': ['parallel', 'perpendicular'],
+                'charge': 0,
+                'multiplicity': 1
+            },
+            'Nb2': {
+                'description': 'Niobium dimer',
+                'elements': ['Nb', 'Nb'],
+                'geometry': self._nb2_geometry,
+                'orientations': ['parallel', 'perpendicular'],
+                'charge': 0,
+                'multiplicity': 1
+            },
+            'W2': {
+                'description': 'Tungsten dimer',
+                'elements': ['W', 'W'],
+                'geometry': self._w2_geometry,
+                'orientations': ['parallel', 'perpendicular'],
+                'charge': 0,
+                'multiplicity': 1
+            },
+            'Ta2': {
+                'description': 'Tantalum dimer',
+                'elements': ['Ta', 'Ta'],
+                'geometry': self._ta2_geometry,
+                'orientations': ['parallel', 'perpendicular'],
+                'charge': 0,
+                'multiplicity': 1
+            },
+            'V2': {
+                'description': 'Vanadium dimer',
+                'elements': ['V', 'V'],
+                'geometry': self._v2_geometry,
+                'orientations': ['parallel', 'perpendicular'],
+                'charge': 0,
+                'multiplicity': 3
+            },
+            'C2': {
+                'description': 'Carbon dimer',
+                'elements': ['C', 'C'],
+                'geometry': self._c2_geometry,
+                'orientations': ['parallel', 'perpendicular'],
+                'charge': 0,
+                'multiplicity': 3
+            },
             # Inorganic molecules
             'Sb2O3': {
                 'description': 'Antimony trioxide',
@@ -606,6 +718,14 @@ class AdsorbantLibrary:
                 'orientations': ['flat', 'vertical'],
                 'charge': 2,
                 'multiplicity': 1
+            },
+            'BV': {
+                'description': 'Benzyl viologen',
+                'elements': ['C']*19 + ['N']*2 + ['H']*18,
+                'geometry': self._benzyl_viologen_geometry,
+                'orientations': ['flat', 'vertical'],
+                'charge': 2,
+                'multiplicity': 1
             }
         }
     
@@ -976,7 +1096,203 @@ class AdsorbantLibrary:
         
         return Atoms([Atom('Pd', pd1_pos), Atom('Pd', pd2_pos)])
     
-    # Inorganic molecule geometries
+    def _ag2_geometry(self, position: Tuple[float, float, float], orientation: str) -> Atoms:
+        """Create Ag2 dimer."""
+        x, y, z = position
+        bond_length = 2.44  # Å
+        
+        if orientation == 'parallel':
+            ag1_pos = [x - bond_length/2, y, z]
+            ag2_pos = [x + bond_length/2, y, z]
+        elif orientation == 'perpendicular':
+            ag1_pos = [x, y, z - bond_length/2]
+            ag2_pos = [x, y, z + bond_length/2]
+        
+        return Atoms([Atom('Ag', ag1_pos), Atom('Ag', ag2_pos)])
+    
+    def _mn2_geometry(self, position: Tuple[float, float, float], orientation: str) -> Atoms:
+        """Create Mn2 dimer."""
+        x, y, z = position
+        bond_length = 2.15  # Å
+        
+        if orientation == 'parallel':
+            mn1_pos = [x - bond_length/2, y, z]
+            mn2_pos = [x + bond_length/2, y, z]
+        elif orientation == 'perpendicular':
+            mn1_pos = [x, y, z - bond_length/2]
+            mn2_pos = [x, y, z + bond_length/2]
+        
+        return Atoms([Atom('Mn', mn1_pos), Atom('Mn', mn2_pos)])
+    
+    def _ir2_geometry(self, position: Tuple[float, float, float], orientation: str) -> Atoms:
+        """Create Ir2 dimer."""
+        x, y, z = position
+        bond_length = 2.73  # Å
+        
+        if orientation == 'parallel':
+            ir1_pos = [x - bond_length/2, y, z]
+            ir2_pos = [x + bond_length/2, y, z]
+        elif orientation == 'perpendicular':
+            ir1_pos = [x, y, z - bond_length/2]
+            ir2_pos = [x, y, z + bond_length/2]
+        
+        return Atoms([Atom('Ir', ir1_pos), Atom('Ir', ir2_pos)])
+    
+    def _rh2_geometry(self, position: Tuple[float, float, float], orientation: str) -> Atoms:
+        """Create Rh2 dimer."""
+        x, y, z = position
+        bond_length = 2.69  # Å
+        
+        if orientation == 'parallel':
+            rh1_pos = [x - bond_length/2, y, z]
+            rh2_pos = [x + bond_length/2, y, z]
+        elif orientation == 'perpendicular':
+            rh1_pos = [x, y, z - bond_length/2]
+            rh2_pos = [x, y, z + bond_length/2]
+        
+        return Atoms([Atom('Rh', rh1_pos), Atom('Rh', rh2_pos)])
+    
+    def _re2_geometry(self, position: Tuple[float, float, float], orientation: str) -> Atoms:
+        """Create Re2 dimer."""
+        x, y, z = position
+        bond_length = 2.48  # Å
+        
+        if orientation == 'parallel':
+            re1_pos = [x - bond_length/2, y, z]
+            re2_pos = [x + bond_length/2, y, z]
+        elif orientation == 'perpendicular':
+            re1_pos = [x, y, z - bond_length/2]
+            re2_pos = [x, y, z + bond_length/2]
+        
+        return Atoms([Atom('Re', re1_pos), Atom('Re', re2_pos)])
+    
+    def _ru2_geometry(self, position: Tuple[float, float, float], orientation: str) -> Atoms:
+        """Create Ru2 dimer."""
+        x, y, z = position
+        bond_length = 2.45  # Å
+        
+        if orientation == 'parallel':
+            ru1_pos = [x - bond_length/2, y, z]
+            ru2_pos = [x + bond_length/2, y, z]
+        elif orientation == 'perpendicular':
+            ru1_pos = [x, y, z - bond_length/2]
+            ru2_pos = [x, y, z + bond_length/2]
+        
+        return Atoms([Atom('Ru', ru1_pos), Atom('Ru', ru2_pos)])
+    
+    def _cd2_geometry(self, position: Tuple[float, float, float], orientation: str) -> Atoms:
+        """Create Cd2 dimer."""
+        x, y, z = position
+        bond_length = 2.96  # Å
+        
+        if orientation == 'parallel':
+            cd1_pos = [x - bond_length/2, y, z]
+            cd2_pos = [x + bond_length/2, y, z]
+        elif orientation == 'perpendicular':
+            cd1_pos = [x, y, z - bond_length/2]
+            cd2_pos = [x, y, z + bond_length/2]
+        
+        return Atoms([Atom('Cd', cd1_pos), Atom('Cd', cd2_pos)])
+    
+    def _al2_geometry(self, position: Tuple[float, float, float], orientation: str) -> Atoms:
+        """Create Al2 dimer."""
+        x, y, z = position
+        bond_length = 2.49  # Å
+        
+        if orientation == 'parallel':
+            al1_pos = [x - bond_length/2, y, z]
+            al2_pos = [x + bond_length/2, y, z]
+        elif orientation == 'perpendicular':
+            al1_pos = [x, y, z - bond_length/2]
+            al2_pos = [x, y, z + bond_length/2]
+        
+        return Atoms([Atom('Al', al1_pos), Atom('Al', al2_pos)])
+    
+    def _zn2_geometry(self, position: Tuple[float, float, float], orientation: str) -> Atoms:
+        """Create Zn2 dimer."""
+        x, y, z = position
+        bond_length = 2.30  # Å
+        
+        if orientation == 'parallel':
+            zn1_pos = [x - bond_length/2, y, z]
+            zn2_pos = [x + bond_length/2, y, z]
+        elif orientation == 'perpendicular':
+            zn1_pos = [x, y, z - bond_length/2]
+            zn2_pos = [x, y, z + bond_length/2]
+        
+        return Atoms([Atom('Zn', zn1_pos), Atom('Zn', zn2_pos)])
+    
+    def _nb2_geometry(self, position: Tuple[float, float, float], orientation: str) -> Atoms:
+        """Create Nb2 dimer."""
+        x, y, z = position
+        bond_length = 2.29  # Å
+        
+        if orientation == 'parallel':
+            nb1_pos = [x - bond_length/2, y, z]
+            nb2_pos = [x + bond_length/2, y, z]
+        elif orientation == 'perpendicular':
+            nb1_pos = [x, y, z - bond_length/2]
+            nb2_pos = [x, y, z + bond_length/2]
+        
+        return Atoms([Atom('Nb', nb1_pos), Atom('Nb', nb2_pos)])
+    
+    def _w2_geometry(self, position: Tuple[float, float, float], orientation: str) -> Atoms:
+        """Create W2 dimer."""
+        x, y, z = position
+        bond_length = 2.16  # Å (tungsten has short triple bonds)
+        
+        if orientation == 'parallel':
+            w1_pos = [x - bond_length/2, y, z]
+            w2_pos = [x + bond_length/2, y, z]
+        elif orientation == 'perpendicular':
+            w1_pos = [x, y, z - bond_length/2]
+            w2_pos = [x, y, z + bond_length/2]
+        
+        return Atoms([Atom('W', w1_pos), Atom('W', w2_pos)])
+    
+    def _ta2_geometry(self, position: Tuple[float, float, float], orientation: str) -> Atoms:
+        """Create Ta2 dimer."""
+        x, y, z = position
+        bond_length = 2.35  # Å
+        
+        if orientation == 'parallel':
+            ta1_pos = [x - bond_length/2, y, z]
+            ta2_pos = [x + bond_length/2, y, z]
+        elif orientation == 'perpendicular':
+            ta1_pos = [x, y, z - bond_length/2]
+            ta2_pos = [x, y, z + bond_length/2]
+        
+        return Atoms([Atom('Ta', ta1_pos), Atom('Ta', ta2_pos)])
+    
+    def _v2_geometry(self, position: Tuple[float, float, float], orientation: str) -> Atoms:
+        """Create V2 dimer."""
+        x, y, z = position
+        bond_length = 2.02  # Å
+        
+        if orientation == 'parallel':
+            v1_pos = [x - bond_length/2, y, z]
+            v2_pos = [x + bond_length/2, y, z]
+        elif orientation == 'perpendicular':
+            v1_pos = [x, y, z - bond_length/2]
+            v2_pos = [x, y, z + bond_length/2]
+        
+        return Atoms([Atom('V', v1_pos), Atom('V', v2_pos)])
+    
+    def _c2_geometry(self, position: Tuple[float, float, float], orientation: str) -> Atoms:
+        """Create C2 dimer."""
+        x, y, z = position
+        bond_length = 1.32  # Å (carbon double bond)
+        
+        if orientation == 'parallel':
+            c1_pos = [x - bond_length/2, y, z]
+            c2_pos = [x + bond_length/2, y, z]
+        elif orientation == 'perpendicular':
+            c1_pos = [x, y, z - bond_length/2]
+            c2_pos = [x, y, z + bond_length/2]
+        
+        return Atoms([Atom('C', c1_pos), Atom('C', c2_pos)])
+    
+    # Inorganic molecules
     def _sb2o3_geometry(self, position: Tuple[float, float, float], orientation: str) -> Atoms:
         """Create Sb2O3 molecule."""
         x, y, z = position
@@ -1306,6 +1622,7 @@ class AdsorbantLibrary:
             
             # Fluorine atoms
             atoms.extend([
+
                 Atom('F', [x-2.8, y-0.5, z]), Atom('F', [x-2.8, y+0.5, z]),
                 Atom('F', [x+2.8, y-0.5, z]), Atom('F', [x+2.8, y+0.5, z])
             ])
@@ -1378,6 +1695,7 @@ class AdsorbantLibrary:
         elif orientation == 'vertical':
             # Rotate to vertical orientation
             perylene_positions = [
+
                 [x-2.4, y, z-0.7], [x-1.7, y, z-1.4], [x-1.0, y, z-1.4], [x-0.3, y, z-0.7],
                 [x-0.3, y, z+0.7], [x-1.0, y, z+1.4], [x-1.7, y, z+1.4], [x-2.4, y, z+0.7],
                 [x+0.3, y, z-0.7], [x+1.0, y, z-1.4], [x+1.7, y, z-1.4], [x+2.4, y, z-0.7],

@@ -1,0 +1,107 @@
+ml_calculator: uma-s-1
+pseudo_dir: /home/afaiyad/QE/qe-7.4.1/pseudo
+
+# Materials to study (2D materials supported)
+materials:
+  - MoS2
+
+# Adsorbants to test on MoS2 - Only available dimers and oxides to avoid charge issues
+adsorbants:
+  # Metal dimers (available in library)
+  - Au2        # Gold dimer
+  - Ag2        # Silver dimer
+  - Pt2        # Platinum dimer
+  - Pd2        # Palladium dimer
+  - Cu2        # Copper dimer
+  - Fe2        # Iron dimer
+  - Co2        # Cobalt dimer
+  - Ni2        # Nickel dimer
+  - Mn2        # Manganese dimer
+  - Ir2        # Iridium dimer
+  - Rh2        # Rhodium dimer
+  - Re2        # Rhenium dimer
+  - Ru2        # Ruthenium dimer
+  - Cd2        # Cadmium dimer
+  - Al2        # Aluminum dimer
+  - Zn2        # Zinc dimer
+  - Nb2        # Niobium dimer
+  - W2         # Tungsten dimer
+  - Ta2        # Tantalum dimer
+  - V2         # Vanadium dimer
+  - C2         # Carbon dimer
+  - Ti2        # Titanium dimer
+  - Cr2        # Chromium dimer
+  
+  # Available molecular species (neutral)
+  - Na2        # Sodium dimer
+  - N2         # Nitrogen molecule
+  - O2         # Oxygen molecule
+  - H2         # Hydrogen molecule
+  
+  # Metal oxides
+  - ZnO        # Zinc oxide
+  - TiO2       # Titanium dioxide
+  - Sb2O3      # Antimony trioxide
+
+# Height ranges for each adsorbant [start, end, step] in Angstroms
+# Consistent range for all adsorbants: 2.5-8.0 Å with 0.2 Å steps
+z_ranges:
+  # Metal dimers
+  Au2: [2.5, 8.0, 0.2]     # Gold dimer
+  Ag2: [2.5, 8.0, 0.2]     # Silver dimer
+  Pt2: [2.5, 8.0, 0.2]     # Platinum dimer
+  Pd2: [2.5, 8.0, 0.2]     # Palladium dimer
+  Cu2: [2.5, 8.0, 0.2]     # Copper dimer
+  Fe2: [2.5, 8.0, 0.2]     # Iron dimer
+  Co2: [2.5, 8.0, 0.2]     # Cobalt dimer
+  Ni2: [2.5, 8.0, 0.2]     # Nickel dimer
+  Mn2: [2.5, 8.0, 0.2]     # Manganese dimer
+  Ir2: [2.5, 8.0, 0.2]     # Iridium dimer
+  Rh2: [2.5, 8.0, 0.2]     # Rhodium dimer
+  Re2: [2.5, 8.0, 0.2]     # Rhenium dimer
+  Ru2: [2.5, 8.0, 0.2]     # Ruthenium dimer
+  Cd2: [2.5, 8.0, 0.2]     # Cadmium dimer
+  Al2: [2.5, 8.0, 0.2]     # Aluminum dimer
+  Zn2: [2.5, 8.0, 0.2]     # Zinc dimer
+  Nb2: [2.5, 8.0, 0.2]     # Niobium dimer
+  W2: [2.5, 8.0, 0.2]      # Tungsten dimer
+  Ta2: [2.5, 8.0, 0.2]     # Tantalum dimer
+  V2: [2.5, 8.0, 0.2]      # Vanadium dimer
+  C2: [2.5, 8.0, 0.2]      # Carbon dimer
+  Ti2: [2.5, 8.0, 0.2]     # Titanium dimer
+  Cr2: [2.5, 8.0, 0.2]     # Chromium dimer
+  
+  # Available molecular species
+  Na2: [2.5, 8.0, 0.2]     # Sodium dimer
+  N2: [2.5, 8.0, 0.2]      # Nitrogen molecule
+  O2: [2.5, 8.0, 0.2]      # Oxygen molecule
+  H2: [2.5, 8.0, 0.2]      # Hydrogen molecule
+  
+  # Metal oxides
+  ZnO: [2.5, 8.0, 0.2]     # Zinc oxide
+  TiO2: [2.5, 8.0, 0.2]    # Titanium dioxide
+  Sb2O3: [2.5, 8.0, 0.2]   # Antimony trioxide
+
+# DFT calculation settings
+dft_settings:
+  ecutwfc: 80               # Plane wave cutoff (Ry)
+  ecutrho: 640             # Density cutoff (Ry)  
+  kpts: [6, 6, 1]          # k-point mesh [nx, ny, nz]
+  conv_thr: 1.0e-8         # SCF convergence threshold
+  vdw_corr: grimme-d3      # van der Waals correction
+  occupations: smearing    # Electronic occupations
+  smearing: mp             # Smearing type
+  degauss: 0.01           # Smearing parameter
+
+# Slab settings
+slab_settings:
+  size: [3, 3]            # Slab size [nx, ny]
+  vacuum: 14.0            # Vacuum space (Angstroms)
+  layers: 1               # Number of layers (for 3D materials)
+
+# Job settings
+job_settings:
+  ml_time_limit: "2-23:59:00"    # ML job time limit
+  dft_time_limit: "3-00:00:00"   # DFT job time limit
+  priority_ml: 1                  # ML job priority
+  priority_dft: 2                 # DFT job priority
