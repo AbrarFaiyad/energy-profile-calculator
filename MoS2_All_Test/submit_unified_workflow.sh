@@ -1,7 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=unified_workflow
 #SBATCH --partition=pi.amartini
-#SBATCH --account=cenvalos
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=4
@@ -23,14 +22,14 @@ echo "================================================="
 
 # Load required modules
 module purge
-module load anaconda3/2023.09
-module load cuda/12.1
+module load anaconda3
+module load cuda
 module load fftw
-module load quantum-espresso/7.1
-module load mpich/3.4.2-intel-2021.4.0
+module load quantum-espresso
+module load mpich
 
 # Activate conda environment
-source activate base
+conda activate fair
 
 # Set environment variables
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
