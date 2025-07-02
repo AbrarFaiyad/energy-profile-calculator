@@ -444,6 +444,135 @@ The calculator generates several output files:
 - `{adsorbant}_{surface}_profile.png/pdf`: Main energy profile plot
 - `{adsorbant}_{surface}_profile_summary.png/pdf`: Comparison summary
 
+## Examples
+
+### MoS2_All_Test: Comprehensive Workflow Example
+
+The `MoS2_All_Test` directory provides an excellent, production-ready example of using the energy profile calculator for large-scale studies. This example demonstrates:
+
+#### Key Features
+- **🔥 Unified Workflow**: Single script managing entire calculation pipeline
+- **🤖 Smart Job Management**: Automatic cluster job submission with dependency tracking
+- **🔬 Hybrid ML+DFT Pipeline**: ML screening with selective DFT validation
+- **📚 Comprehensive Coverage**: 30+ adsorbants including metals, oxides, and organic molecules
+- **🖥️ Cluster-Ready**: Optimized for HPC environments with SLURM
+
+#### Quick Start with MoS2_All_Test
+
+```bash
+# Navigate to the comprehensive example
+cd energy_profile_calculator/MoS2_All_Test
+
+# Check system requirements and setup
+python check_pseudopotentials.py --auto-fix
+
+# Run the complete workflow (cluster environment)
+python unified_workflow.py
+
+# For local testing
+python unified_workflow.py --config local_config.yaml
+
+# Monitor progress
+python unified_workflow.py --status
+```
+
+#### What This Example Demonstrates
+
+1. **Setup and Validation**
+   - Automatic pseudopotential management
+   - System configuration validation
+   - Environment compatibility checks
+
+2. **Large-Scale ML Calculations**
+   - Parallel calculation of 30+ adsorbants on MoS2
+   - Intelligent job batching and resource management
+   - Real-time progress monitoring
+
+3. **Selective DFT Validation**
+   - Smart selection of interesting cases for DFT
+   - Automatic dependency management between ML and DFT jobs
+   - Resource-efficient validation strategy
+
+4. **Comprehensive Analysis**
+   - Automated report generation
+   - ML vs DFT comparison plots
+   - Statistical analysis of binding energies
+
+5. **Production Features**
+   - Robust error handling and recovery
+   - Detailed logging and monitoring
+   - Cluster job management best practices
+
+#### Example Output Structure
+```
+MoS2_All_Test/
+├── unified_results/
+│   ├── ml_calculations/          # ML results for all adsorbants
+│   │   ├── Au2_MoS2/
+│   │   ├── H2O_MoS2/
+│   │   └── ...
+│   ├── dft_calculations/         # DFT validation results
+│   │   ├── selected_cases/
+│   │   └── validation_summary/
+│   ├── reports/                  # Analysis and visualization
+│   │   ├── comprehensive_report.html
+│   │   ├── ml_vs_dft_comparison.png
+│   │   └── binding_energy_analysis.pdf
+│   └── logs/                     # Detailed execution logs
+└── job_scripts/                  # Generated cluster job scripts
+```
+
+#### Configuration Highlights
+
+The example includes production-ready configurations:
+
+```yaml
+# workflow_config.yaml - Main configuration
+adsorbants:
+  metals: [Au2, Ag2, Pt2, Pd2, Cu2, Ni2, Fe2, Co2]
+  oxides: [ZnO, TiO2, Sb2O3]
+  molecules: [H2O, NH3, CH4, F4TCNQ, tetracene]
+
+ml_settings:
+  model: 'uma-s-1'
+  device: 'cuda'
+  batch_size: 8
+  
+dft_settings:
+  validation_subset: 0.3  # Validate 30% with DFT
+  selection_strategy: 'diverse_binding'
+  
+cluster_settings:
+  partition: 'gpu'
+  time_limit: '24:00:00'
+  nodes_per_job: 1
+```
+
+### Other Examples
+
+#### Basic Metal Surface Calculation
+```bash
+# Simple Au(111) + H2O calculation
+energy-profile --surface Au --miller 1 1 1 --adsorbant H2O --ml-only
+```
+
+#### 2D Material Study
+```bash
+# MoS2 monolayer with metal cluster
+energy-profile --surface MoS2 --adsorbant Au2 --z-range 2.0 8.0 --step 0.2
+```
+
+#### Batch Processing
+```python
+from energy_profile_calculator import BatchCalculator
+
+batch = BatchCalculator()
+batch.add_calculation('Au', (1,1,1), 'H2O')
+batch.add_calculation('Au', (1,1,1), 'NH3')
+batch.add_calculation('MoS2', None, 'Au2')  # 2D surface
+results = batch.run_all()
+```
+
 ## Troubleshooting
 
 ### Common Issues

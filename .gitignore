@@ -143,6 +143,51 @@ job.*
 *.svg
 *.eps
 
+# Exclude all run directories and their results
+run_*/
+*/run_*/
+*/*/run_*/
+
+# Exclude unfinished and debugging code
+*_debug*
+*debug_*
+test_*
+*_test*
+*temp*
+*tmp*
+scratch/
+debugging/
+unfinished/
+wip/
+draft/
+old/
+backup/
+
+# Exclude old/experimental versions
+MoS2_v2/
+MoS2_v3/
+MoS2_v*/
+
+# Debugging and development scripts
+fix_*.py
+debug_*.py
+temp_*.py
+test_*.py
+validate_*.py
+check_*.py
+*_fix.py
+*_debug.py
+*_temp.py
+*_validation.py
+
+# Specific files to exclude from MoS2_All_Test
+MoS2_All_Test/fix_numpy_environment.sh
+MoS2_All_Test/fix_numpy_issue.sh
+MoS2_All_Test/job_config.yaml
+MoS2_All_Test/job_manager.py
+MoS2_All_Test/migrate_to_unified.sh
+MoS2_All_Test/comprehensive_runner.py
+
 # Temporary and cache files
 .DS_Store
 .vscode/
@@ -175,6 +220,14 @@ scratch/
 job.e*
 job.o*
 slurm-*.out
+*.err
+*.out
+
+# Cluster-specific files
+submit_*.sh
+job_manager_*.sh
+*_submit.sh
+cluster_*.log
 
 # Molecular dynamics outputs
 md_output.traj
